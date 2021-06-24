@@ -5,4 +5,7 @@
     <string name="search_text">Search Items</string>
     <string name="search_button_text">Search</string>
     <string name="search_toast">Please input somethings</string>
+    <string name="list_picture">Item Image</string>
+    <string name="item_name">Item Name : </string>
+    <string name="item_price">Item Price : </string>
 </resources>
