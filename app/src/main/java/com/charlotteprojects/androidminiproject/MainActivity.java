@@ -13,22 +13,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //region init the layout
+        //init the container
+        Button buttonStart = findViewById(R.id.main_button_start);
 
-        Button ButtonStart = findViewById(R.id.main_button_start);
-
-        //endregion
-
-        //region init the Button Onclick
-
-        ButtonStart.setOnClickListener(new View.OnClickListener() {
+        //Set the Start Button Onclick
+        buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchPage.class);
                 startActivity(intent);
             }
         });
-
-        //endregion
     }
 }
