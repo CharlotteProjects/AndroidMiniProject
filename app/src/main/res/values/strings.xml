@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">AndroidMiniProject</string>
+    <string name="app_name">Where Shop</string>
+    <string name="main_button_start">Start</string>
+    <string name="main_button_login">Login</string>
 </resources>
