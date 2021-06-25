@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10sp"
+    android:paddingTop="10sp"
+    android:paddingBottom="10sp"
+    android:paddingEnd="10sp"
     tools:context=".MainActivity">
 
     <ImageView
@@ -21,10 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="8sp"
+        android:layout_marginStart="15sp"
         android:text="@string/item_name"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/list_image_map"
-        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toEndOf="@+id/list_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +37,7 @@
         android:layout_marginTop="8sp"
         android:text="@string/item_name"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/list_image_map"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,10 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="8sp"
+        android:layout_marginStart="15sp"
         android:text="@string/item_price"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/list_image_map"
-        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toEndOf="@+id/list_image"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -61,16 +61,8 @@
         android:layout_marginTop="8sp"
         android:text="@string/item_name"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/list_image_map"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/list_text" />
 
-    <ImageView
-        android:id="@+id/list_image_map"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
-        android:contentDescription="@string/list_picture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
