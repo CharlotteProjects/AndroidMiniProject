@@ -1,6 +1,7 @@
 package com.charlotteprojects.androidminiproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +12,21 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Objects;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class SearchPage extends AppCompatActivity {
+
+    private static final String TAG = "SearchPage";
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     private EditText editInput;
 
@@ -27,6 +38,22 @@ public class SearchPage extends AppCompatActivity {
         //init the container
         editInput = findViewById(R.id.search_editText);
         Button buttonSearch = findViewById(R.id.search_button_search);
+
+        firestore.collection("item")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull @org.jetbrains.annotations.NotNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                Log.d(TAG, document.getId() + " is " + document.getData());
+                            }
+                        } else {
+                        Log.e(TAG, "Error getting documents.", task.getException());
+                    }
+                }
+            });
+
 
         // Set the Search Button
         buttonSearch.setOnClickListener(new View.OnClickListener() {
