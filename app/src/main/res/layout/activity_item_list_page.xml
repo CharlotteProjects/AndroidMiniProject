@@ -32,6 +32,13 @@
             android:textSize="24sp" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/itemList_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:textSize="24sp"/>
+
     <ListView
         android:id="@+id/itemList_listview"
         android:layout_width="match_parent"

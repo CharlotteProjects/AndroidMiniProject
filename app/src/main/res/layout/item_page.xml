@@ -13,7 +13,7 @@
         android:id="@+id/list_image"
         android:layout_width="80sp"
         android:layout_height="80sp"
-        android:contentDescription="@string/list_picture"
+        android:contentDescription="@string/item_picture"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -30,29 +30,38 @@ public class ItemListPage extends AppCompatActivity {
         TextView textView = findViewById(R.id.itemList_searchWord);
         textView.setText(keyWord);
 
-
+        // Create the ListView by key word
         SetItemListView(keyWord);
     }
 
     // After Get Firebase Data, then create item list view
     private void SetItemListView(String keyword){
+
         ListView listView = (ListView) findViewById(R.id.itemList_listview);
+        TextView text_found = (TextView) findViewById(R.id.itemList_found);
 
         List<HashMap<String, Object>> myList = new ArrayList<HashMap<String, Object>>();
 
         for(int i = 0;i < MainActivity.itemNameList.size() ; i++){
             HashMap<String, Object> item = new HashMap<String, Object>();
 
+            // Check the which item match with keyword
             if(MainActivity.itemNameList.get(i).contains(keyword)){
-
                 Log.i(MainActivity.TAG,"["+MainActivity.itemNameList.get(i) + "] is match !");
 
                 item.put("name", MainActivity.itemNameList.get(i));
                 item.put("price", MainActivity.itemPriceList.get(i));
                 // item.put("image",imageAddress[i]);
                 myList.add(item);
+
+                // Set the Text
+                text_found.setText(R.string.itemList_found);
             }
         }
+
+        // If do not match
+        if(text_found.getText().toString().isEmpty())
+            text_found.setText(R.string.itemList_notFound);
 
         SimpleAdapter adapter = new SimpleAdapter(
                 this,

@@ -98,7 +98,7 @@ public class SearchPage extends AppCompatActivity {
                     Intent intent = new Intent(SearchPage.this, ItemListPage.class);
                     intent.putExtra(SEARCH_WORD, keyWord);
                     startActivity(intent);
-                    Log.i(MainActivity.TAG,"User input" + keyWord);
+                    Log.i(MainActivity.TAG,"User input : " + keyWord );
                 }
             }
         });
