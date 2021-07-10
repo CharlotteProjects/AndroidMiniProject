@@ -3,6 +3,7 @@ package com.charlotteprojects.androidminiproject;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ https://www.hangtatproducts.com.hk/?catcode=cat_1005&page=productcat
 
 public class SearchPage extends AppCompatActivity {
 
+    public static final String SEARCH_WORD = "0001";
 
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private EditText editInput;
@@ -92,6 +94,9 @@ public class SearchPage extends AppCompatActivity {
                 String inputString = editInput.getText().toString();
                 if(!inputString.equals("")){
                     Toast.makeText(SearchPage.this,inputString, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SearchPage.this, ItemListPage.class);
+                    intent.putExtra(SEARCH_WORD, inputString);
+                    startActivity(intent);
                 } else{
                     Toast.makeText(SearchPage.this,R.string.search_toast, Toast.LENGTH_SHORT).show();
                 }
