@@ -7,16 +7,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    // For Debug
+    public static final String TAG = "DebugLog";
+
+    // List for store the firebase data
+    public static List<String> itemNameList = new ArrayList<>();
+    public static List<String> itemPriceList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //init the container
+        //region Set up the search page
         Button buttonStart = findViewById(R.id.main_button_start);
-
-        //Set the Start Button Onclick
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -24,5 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //endregion
+
     }
 }

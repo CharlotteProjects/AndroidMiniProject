@@ -23,11 +23,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/*
+價錢參考的網 :
+https://www.hangtatproducts.com.hk/?catcode=cat_1005&page=productcat
+ */
+
 public class SearchPage extends AppCompatActivity {
 
-    private static final String TAG = "SearchPage";
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private EditText editInput;
 
     @Override
@@ -35,55 +39,78 @@ public class SearchPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
 
-        //init the container
-        editInput = findViewById(R.id.search_editText);
-        Button buttonSearch = findViewById(R.id.search_button_search);
-
+        //region Firebase get item data and set the List<String>
         firestore.collection("item")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull @org.jetbrains.annotations.NotNull Task<QuerySnapshot> task) {
+
+                        // Clear the list because every time in this page will get again
+                        MainActivity.itemNameList.clear();
+                        MainActivity.itemPriceList.clear();
+
                         if (task.isSuccessful()) {
+                            int index = 0;
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                Log.d(TAG, document.getId() + " is " + document.getData());
+
+                                String json = document.getData().toString();
+
+                                String[] array = json.split(",");
+
+                                // Set the data the item list and display to log
+                                if(array.length > 0){
+                                    String itemName = array[1].substring(6, array[1].length()-1);
+                                    String itemPrice = array[0].substring(7);
+
+                                    MainActivity.itemNameList.add(itemName);
+                                    MainActivity.itemPriceList.add(itemPrice);
+
+                                    Log.i(MainActivity.TAG,
+                                            MainActivity.itemNameList.get(index)+" is $ : " + MainActivity.itemPriceList.get(index),
+                                            task.getException()
+                                    );
+                                    index++;
+                                }
                             }
+
+                            SetItemListView();
                         } else {
-                        Log.e(TAG, "Error getting documents.", task.getException());
+                        Log.e(MainActivity.TAG, "Error Can not get data.", task.getException());
                     }
                 }
             });
 
+        //endregion
 
-        // Set the Search Button
+        //region Set the Search Button
+        editInput = findViewById(R.id.search_editText);
+        Button buttonSearch = findViewById(R.id.search_button_search);
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String inputString = editInput.getText().toString();
                 if(!inputString.equals("")){
-                    Log.e("SearchPage", "User input " + inputString);
+                    Toast.makeText(SearchPage.this,inputString, Toast.LENGTH_SHORT).show();
                 } else{
                     Toast.makeText(SearchPage.this,R.string.search_toast, Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-        LoadingItemList();
+        //endregion
     }
 
-    private void LoadingItemList(){
+    // After Get Firebase Data, then create item list view
+    private void SetItemListView(){
         ListView listView = (ListView) findViewById(R.id.search_listview);
 
-        String[] itemName = {"物件一","物件二","物件三","物件四","物件五","物件六"};
-        String[] itemPrice = {"100","120","160","80","60","180"};
         List<HashMap<String, Object>> myList = new ArrayList<HashMap<String, Object>>();
 
-
-        for(int i = 0;i < itemName.length ; i++){
+        for(int i = 0;i < MainActivity.itemNameList.size() ; i++){
             HashMap<String, Object> item = new HashMap<String, Object>();
-            item.put("name", itemName[i]);
-            item.put("price", itemPrice[i]);
-            //item.put("image",imageAddress[i]);
+            item.put("name", MainActivity.itemNameList.get(i));
+            item.put("price", MainActivity.itemPriceList.get(i));
+            // item.put("image",imageAddress[i]);
             myList.add(item);
         }
 
