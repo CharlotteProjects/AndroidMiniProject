@@ -33,7 +33,6 @@ public class SearchPage extends AppCompatActivity {
 
     public static final String SEARCH_WORD = "0001";
 
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private EditText editInput;
 
     @Override
@@ -42,7 +41,7 @@ public class SearchPage extends AppCompatActivity {
         setContentView(R.layout.activity_search_page);
 
         //region Firebase get item data and set the List<String>
-        firestore.collection("item")
+        MainActivity.firestore.collection("item")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -60,7 +59,7 @@ public class SearchPage extends AppCompatActivity {
 
                                 String[] array = json.split(",");
 
-                                // Set the data the item list and display to log
+                                // Set the data to item list and display on the log
                                 if(array.length > 0){
                                     String itemName = array[1].substring(6, array[1].length()-1);
                                     String itemPrice = array[0].substring(7);

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
 
     // For Debug
     public static final String TAG = "DebugLog";
+
+    // Init Firebase
+    public static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     // List for store the firebase data
     public static List<String> itemNameList = new ArrayList<>();
@@ -35,5 +40,15 @@ public class MainActivity extends AppCompatActivity {
         });
         //endregion
 
+        //region Set up the search page
+        Button buttonLogin = findViewById(R.id.main_button_login);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginPage.class);
+                startActivity(intent);
+            }
+        });
+        //endregion
     }
 }
