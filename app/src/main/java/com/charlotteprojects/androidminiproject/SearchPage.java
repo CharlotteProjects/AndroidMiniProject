@@ -69,7 +69,7 @@ public class SearchPage extends AppCompatActivity {
                                     MainActivity.itemPriceList.add(itemPrice);
 
                                     Log.i(MainActivity.TAG,
-                                            MainActivity.itemNameList.get(index)+" is $ : " + MainActivity.itemPriceList.get(index),
+                                            "[" + MainActivity.itemNameList.get(index)+"] is $ : " + MainActivity.itemPriceList.get(index),
                                             task.getException()
                                     );
                                     index++;
@@ -91,14 +91,14 @@ public class SearchPage extends AppCompatActivity {
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputString = editInput.getText().toString();
-                if(!inputString.equals("")){
-                    Toast.makeText(SearchPage.this,inputString, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SearchPage.this, ItemListPage.class);
-                    intent.putExtra(SEARCH_WORD, inputString);
-                    startActivity(intent);
-                } else{
+                String keyWord = editInput.getText().toString();
+                if(keyWord.isEmpty()){
                     Toast.makeText(SearchPage.this,R.string.search_toast, Toast.LENGTH_SHORT).show();
+                } else{
+                    Intent intent = new Intent(SearchPage.this, ItemListPage.class);
+                    intent.putExtra(SEARCH_WORD, keyWord);
+                    startActivity(intent);
+                    Log.i(MainActivity.TAG,"User input" + keyWord);
                 }
             }
         });
