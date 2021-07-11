@@ -70,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="24sp"
             android:text="@string/login_registered" />
 
         <Button
@@ -79,6 +80,7 @@
             android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="24sp"
             android:text="@string/login_login" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

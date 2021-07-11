@@ -61,11 +61,11 @@ public class SearchPage extends AppCompatActivity {
 
                                 // Set the data to item list and display on the log
                                 if(array.length > 0){
-                                    String itemName = array[1].substring(6, array[1].length()-1);
                                     String itemPrice = array[0].substring(7);
+                                    String itemName = array[1].substring(6, array[1].length()-1);
 
-                                    MainActivity.itemNameList.add(itemName);
                                     MainActivity.itemPriceList.add(itemPrice);
+                                    MainActivity.itemNameList.add(itemName);
 
                                     Log.i(MainActivity.TAG,
                                             "[" + MainActivity.itemNameList.get(index)+"] is $ : " + MainActivity.itemPriceList.get(index),
