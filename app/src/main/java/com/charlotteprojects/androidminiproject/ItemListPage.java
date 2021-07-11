@@ -67,7 +67,7 @@ public class ItemListPage extends AppCompatActivity {
                 myList,
                 R.layout.item_page,
                 new String[]{"name","price"},
-                new int[]{R.id.list_text, R.id.list_price}
+                new int[]{R.id.list_name, R.id.list_price}
         );
 
         listView.setAdapter(adapter);

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private static List<String> loginIDList = new ArrayList<>();
     private static List<String> loginPWList = new ArrayList<>();
     private static List<String> UserNameList = new ArrayList<>();
+    private static String myId;
     private static boolean isLogined = false;
 
     @Override
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //endregion
 
-        //region Firebase get account data because program need to check login when start app
+        //region Firebase get account data, because program need to check login when start app
         firestore.collection("account")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -109,6 +110,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Set my sign in ID
+    public static void SetMyId(String id){
+        myId = id;
+    }
+
     // Login Function Check the ID and PW
     public static Boolean LoginAccount(String inputID, String inputPW){
 
@@ -123,5 +129,14 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG,"Login Fail.");
         isLogined = false;
         return false;
+    }
+
+    // For user sign up check email
+    public static Boolean CheckEmailHaveBeSignUp(String email){
+            for(String id : loginIDList){
+                if(id.equals(email))
+                    return true;
+            }
+            return false;
     }
 }

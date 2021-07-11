@@ -13,7 +13,7 @@
     tools:context=".SearchPage">
 
     <TextView
-        android:id="@+id/search_text"
+        android:id="@+id/search_text_IFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_text"
@@ -44,7 +44,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/search_text2"
+        android:id="@+id/search_text_recommend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15sp"

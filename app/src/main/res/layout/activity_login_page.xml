@@ -11,7 +11,7 @@
         android:id="@+id/login_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_text"
+        android:text="@string/login_title"
         android:layout_marginTop="50sp"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,12 +19,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/login_loginGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50sp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/login_text">
+        app:layout_constraintTop_toBottomOf="@+id/login_text"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:id="@+id/login_id"
@@ -62,7 +64,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/login_loginGroup">
 
         <Button
             android:id="@+id/login_button_registered"
