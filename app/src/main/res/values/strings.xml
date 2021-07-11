@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Where Shop</string>
 
+    <string name="toast_login">Please input User ID and Password.</string>
+    <string name="toast_loginSuccess">Login Success. Welcome !</string>
+    <string name="toast_loginFail">Wrong User ID or Password input.</string>
+
+
     <string name="item_picture">Item Image</string>
     <string name="item_name">Item Name : </string>
     <string name="item_price">Item Price : </string>

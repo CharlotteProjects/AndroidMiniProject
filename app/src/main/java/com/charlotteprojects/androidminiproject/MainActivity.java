@@ -32,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
     public static List<String> itemPriceList = new ArrayList<>();
 
     // Login ID & PW
-    private List<String> UserIDList = new ArrayList<>();
-    private List<String> loginIDList = new ArrayList<>();
-    private List<String> loginPWList = new ArrayList<>();
-    private List<String> UserNameList = new ArrayList<>();
-    private boolean isLogined = false;
+    private static List<String> UserIDList = new ArrayList<>();
+    private static List<String> loginIDList = new ArrayList<>();
+    private static List<String> loginPWList = new ArrayList<>();
+    private static List<String> UserNameList = new ArrayList<>();
+    private static boolean isLogined = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //endregion
-
 
         //region Firebase get account data because program need to check login when start app
         firestore.collection("account")
@@ -110,8 +109,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Input
-    public Boolean LoginAccount(String id, String pw){
+    // Login Function Check the ID and PW
+    public static Boolean LoginAccount(String inputID, String inputPW){
+
+        // Check the ID & PW
+        for(int i = 0; i < loginIDList.size(); i++){
+            if(inputID.equals(loginIDList.get(i)) && inputPW.equals(loginPWList.get(i))){
+                isLogined = true;
+                Log.i(TAG,"The user id is "+ UserIDList.get(i));
+                return true;
+            }
+        }
+        Log.i(TAG,"Login Fail.");
+        isLogined = false;
         return false;
     }
 }

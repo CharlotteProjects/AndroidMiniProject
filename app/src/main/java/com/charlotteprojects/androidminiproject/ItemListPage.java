@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +26,8 @@ public class ItemListPage extends AppCompatActivity {
         Log.i(MainActivity.TAG,"Get the keyWord : " + keyWord);
 
         // Set the keyword at TextView
-        TextView textView = findViewById(R.id.itemList_searchWord);
-        textView.setText(keyWord);
+        TextView textSearchWord = findViewById(R.id.itemList_searchWord);
+        textSearchWord.setText(keyWord);
 
         // Create the ListView by key word
         SetItemListView(keyWord);
