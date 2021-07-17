@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">Where Shop</string>
 
-    <string name="toast_login">Please input User ID and Password.</string>
     <string name="toast_loginSuccess">Login Success. Welcome !</string>
     <string name="toast_loginFail">Wrong User ID or Password input.</string>
     <string name="toast_registerEmail">Please enter your email.</string>
     <string name="toast_registerCorrectEmail">Please input a correct Email.</string>
     <string name="toast_registerPW">Please enter password.</string>
+    <string name="toast_registerPWSix">Please enter least 6 characters password .</string>
     <string name="toast_registerPWConfirm">Please enter password again.</string>
     <string name="toast_registerShopName">Please enter your shop name.</string>
     <string name="toast_registerSuccess">Sign up Success./nWelcome to Where\'s Shop.</string>
+    <string name="toast_registerFail">Sign up Fail. Please try again.</string>
 
     <string name="item_picture">Item Image</string>
     <string name="item_name">Item Name : </string>
@@ -17,6 +18,8 @@
 
     <string name="main_button_start">Start</string>
     <string name="main_button_login">Login</string>
+    <string name="main_button_logout">Logout</string>
+    <string name="main_button_manager">Manage</string>
 
     <string name="search_text">I Want to Find : </string>
     <string name="search_text2">Recommend products</string>
@@ -38,7 +41,7 @@
     <string name="register_title">Sign up Account</string>
     <string name="register_name">Shop Name :</string>
     <string name="register_email">Enter your email :</string>
-    <string name="register_password">Enter password :</string>
+    <string name="register_password">Enter password (Least 6 characters) :</string>
     <string name="register_password_again">Confirm password :</string>
     <string name="register_button_register">Register</string>
 

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // For Debug
     public static final String TAG = "DebugLog";
@@ -43,31 +43,35 @@ public class MainActivity extends AppCompatActivity {
     private static String myId;
     private static boolean isLogined = false;
 
+    private Button buttonStart, buttonLogin, buttonLogout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //region Set up the search page
-        Button buttonStart = findViewById(R.id.main_button_start);
-        buttonStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchPage.class);
-                startActivity(intent);
-            }
-        });
-        //endregion
+        firebaseUser = MainActivity.firebaseAuth.getCurrentUser();
 
-        //region Set up the search page
-        Button buttonLogin = findViewById(R.id.main_button_login);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginPage.class);
-                startActivity(intent);
-            }
-        });
+        //region init Button onClick and display
+        buttonStart = findViewById(R.id.main_button_start);
+        buttonStart.setOnClickListener(this);
+
+        buttonLogin = findViewById(R.id.main_button_login);
+        buttonLogin.setOnClickListener(this);
+
+        buttonLogout = findViewById(R.id.main_button_logout);
+        buttonLogout.setOnClickListener(this);
+
+        if(firebaseUser == null){
+            Log.i(TAG, "No one login.");
+            buttonLogin.setText(getResources().getString(R.string.main_button_login));
+            buttonLogout.setVisibility(View.GONE);
+        } else {
+            Log.i(TAG, "Had login, ID : " + firebaseUser.getUid() + ", Email : " + firebaseUser.getEmail());
+            buttonLogin.setText(getResources().getString(R.string.main_button_manager));
+            buttonLogout.setVisibility(View.VISIBLE);
+        }
+
         //endregion
 
         //region Firebase get account data, because program need to check login when start app
@@ -115,13 +119,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        firebaseUser = MainActivity.firebaseAuth.getCurrentUser();
-        if(firebaseUser == null){
-            Log.i(TAG, "Have not login.");
-        } else {
-            Log.i(TAG, "Had login, ID : " + firebaseUser.getUid());
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()){
+            case R.id.main_button_start:
+                intent = new Intent(MainActivity.this, SearchPage.class);
+                startActivity(intent);
+                break;
+
+            case R.id.main_button_login:
+                if(firebaseUser == null){
+                    intent = new Intent(MainActivity.this, LoginPage.class);
+                } else {
+                    intent = new Intent(MainActivity.this, ManagerPage.class);
+                }
+                startActivity(intent);
+                break;
+
+            case R.id.main_button_logout:
+                FirebaseAuth.getInstance().signOut();
+                firebaseUser = null;
+                Log.i(TAG,firebaseUser.getEmail() + " had logout...");
+
+                // hide Logout Button
+                buttonLogin.setText(getResources().getString(R.string.main_button_login));
+                buttonLogout.setVisibility(View.GONE);
+
+                break;
         }
     }
 
