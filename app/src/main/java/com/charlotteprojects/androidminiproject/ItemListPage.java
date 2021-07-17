@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -15,10 +17,14 @@ import java.util.List;
 
 public class ItemListPage extends AppCompatActivity {
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list_page);
+
+        progressBar = (ProgressBar) findViewById(R.id.itemList_progressBar);
 
         // Get the keyword from search page
         Intent intent = getIntent();
@@ -31,6 +37,8 @@ public class ItemListPage extends AppCompatActivity {
 
         // Create the ListView by key word
         SetItemListView(keyWord);
+
+        progressBar.setVisibility(View.GONE);
     }
 
     // After Get Firebase Data, then create item list view

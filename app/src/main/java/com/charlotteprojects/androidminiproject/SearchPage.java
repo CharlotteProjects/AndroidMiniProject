@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -34,10 +35,14 @@ public class SearchPage extends AppCompatActivity {
 
     private EditText editInput;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
+
+        progressBar = (ProgressBar) findViewById(R.id.search_progressBar);
 
         //region Firebase get item data and set the List<String>
         MainActivity.firestore.collection("item")
@@ -76,8 +81,9 @@ public class SearchPage extends AppCompatActivity {
 
                             SetItemListView();
                         } else {
-                        Log.e(MainActivity.TAG, "Error Can not get data.", task.getException());
-                    }
+                            Log.e(MainActivity.TAG, "Error Can not get data.", task.getException());
+                        }
+                        progressBar.setVisibility(View.GONE);
                 }
             });
 

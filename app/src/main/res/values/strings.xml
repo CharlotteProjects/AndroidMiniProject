@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Where Shop</string>
 
-    <string name="toast_loginSuccess">Login Success. Welcome !</string>
     <string name="toast_loginFail">Wrong User ID or Password input.</string>
     <string name="toast_registerEmail">Please enter your email.</string>
     <string name="toast_registerCorrectEmail">Please input a correct Email.</string>
@@ -9,8 +8,12 @@
     <string name="toast_registerPWSix">Please enter least 6 characters password .</string>
     <string name="toast_registerPWConfirm">Please enter password again.</string>
     <string name="toast_registerShopName">Please enter your shop name.</string>
-    <string name="toast_registerSuccess">Sign up Success./nWelcome to Where\'s Shop.</string>
     <string name="toast_registerFail">Sign up Fail. Please try again.</string>
+
+    <string name="alertDialog_loginSuccess">Login Success</string>
+    <string name="alertDialog_loginWelcome">Welcome to Where\'s Shop !</string>
+    <string name="alertDialog_registerSuccess">Sign up Success</string>
+    <string name="alertDialog_registerWelcome">Welcome to Where\'s Shop !\nPlease Check your email for confirm account.</string>
 
     <string name="item_picture">Item Image</string>
     <string name="item_name">Item Name : </string>

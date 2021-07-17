@@ -138,8 +138,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.main_button_logout:
                 FirebaseAuth.getInstance().signOut();
-                firebaseUser = null;
                 Log.i(TAG,firebaseUser.getEmail() + " had logout...");
+                firebaseUser = null;
 
                 // hide Logout Button
                 buttonLogin.setText(getResources().getString(R.string.main_button_login));

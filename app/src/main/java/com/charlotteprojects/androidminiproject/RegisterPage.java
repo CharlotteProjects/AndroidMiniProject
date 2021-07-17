@@ -3,44 +3,37 @@ package com.charlotteprojects.androidminiproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
 
 public class RegisterPage extends AppCompatActivity {
+
+    private ProgressBar progressBar;
+
+    private AlertDialog.Builder dialog_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
-        //region Init Register UI and onClick Listener
+        progressBar = (ProgressBar) findViewById(R.id.register_progressBar);
+        progressBar.setVisibility(View.GONE);
 
         EditText editEmail = (EditText) findViewById(R.id.register_edit_email);
         EditText editPW =  (EditText) findViewById(R.id.register_edit_pw);
@@ -113,6 +106,8 @@ public class RegisterPage extends AppCompatActivity {
 
                 //endregion
 
+                // Create Firebase Account by Email
+                progressBar.setVisibility(View.VISIBLE);
                 MainActivity.firebaseAuth.createUserWithEmailAndPassword(email, PW)
                         .addOnCompleteListener(RegisterPage.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -124,94 +119,34 @@ public class RegisterPage extends AppCompatActivity {
                                     assert MainActivity.firebaseUser != null;
                                     Log.i(MainActivity.TAG, "Create user with Email : success, ID : " + MainActivity.firebaseUser.getUid());
 
-                                    if(MainActivity.firebaseUser.isEmailVerified()){
+                                    MainActivity.firebaseUser.sendEmailVerification();
+                                    Log.i(MainActivity.TAG,"Sent a confirm Email to user.");
 
-                                    } else {
-                                        MainActivity.firebaseUser.sendEmailVerification();
-
-                                        Log.i(MainActivity.TAG,"Sent a confirm Email to user.");
-                                    }
-                                    Intent intent = new Intent(RegisterPage.this, ManagerPage.class);
-                                    startActivity(intent);
+                                    dialog_register.show();
                                 } else {
                                     Log.w(MainActivity.TAG, "Create user with Email : failure", task.getException());
                                     Toast.makeText(RegisterPage.this,R.string.toast_registerFail,Toast.LENGTH_LONG).show();
                                 }
+                                progressBar.setVisibility(View.GONE);
                             }
                         });
-
-                /*
-                mAuth.createUserWithEmailAndPassword(email, PW)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    Log.i(MainActivity.TAG,
-                                            "email : "+ email +
-                                                    ", pw : " + PW +
-                                                    ", Shop Name : " + shopName);
-                                } else {
-                                    Log.i(MainActivity.TAG, "Fail");
-                                }
-                            }
-                        });
-/*
-                Map<String, String> userData = new HashMap<>();
-                userData.put("id", email);
-                userData.put("name", shopName);
-                userData.put("pw", PW);
-
-                MainActivity.firestore.collection("account")
-                        .add(userData)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                MainActivity.SetMyId(documentReference.getId());
-
-                                // Hide the EditText Selected
-                                editEmail.setSelected(false);
-                                editPW.setSelected(false);
-                                editPWConfirm.setSelected(false);
-                                editShopName.setSelected(false);
-
-                                // Hide the Keyboard
-                                View view = RegisterPage.this.getCurrentFocus();
-                                if(view != null){
-                                    InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
-                                }
-
-                                linearLayoutRegisterGroup.setVisibility(View.GONE);
-                                buttonConfirm.setVisibility(View.GONE);
-                                textSuccsee.setText(R.string.toast_registerSuccess);
-
-                                Log.i(MainActivity.TAG,
-                                        "email : "+ email +
-                                        ", pw : " + PW +
-                                        ", Shop Name : " + shopName +
-                                        ", ID : " + documentReference.getId());
-
-                                // After second go to next Manager Page
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent(RegisterPage.this, ManagerPage.class);
-                                        startActivity(intent);
-                                    }
-                                }, 5000);
-                            }
-                        })
-
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.e(MainActivity.TAG,"Upload Firebase Error : ", e);
-                            }
-                        });
-            */
             }
         });
+
+
+        //region init AlertDialog
+
+        dialog_register = new AlertDialog.Builder(RegisterPage.this);
+        dialog_register.setTitle(R.string.alertDialog_registerSuccess);
+        dialog_register.setMessage(R.string.alertDialog_registerWelcome);
+        dialog_register.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                Intent intent = new Intent(RegisterPage.this, ManagerPage.class);
+                startActivity(intent);
+            }
+        });
+
         //endregion
     }
 }

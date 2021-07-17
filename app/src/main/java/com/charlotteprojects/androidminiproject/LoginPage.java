@@ -3,6 +3,8 @@ package com.charlotteprojects.androidminiproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +24,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
     private EditText editID, editPW;
     private ProgressBar progressBar;
+
+    private AlertDialog.Builder dialog_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,20 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
         Button buttonForgot = (Button) findViewById(R.id.login_button_forgot);
         buttonForgot.setOnClickListener(this);
+
         //endregion
+
+        //region init AlertDialog
+        dialog_login= new AlertDialog.Builder(LoginPage.this);
+        dialog_login.setTitle(R.string.alertDialog_loginSuccess);
+        dialog_login.setMessage(R.string.alertDialog_loginWelcome);
+        dialog_login.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                Intent intent = new Intent(LoginPage.this, ManagerPage.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -77,19 +94,20 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-
                             MainActivity.firebaseUser = MainActivity.firebaseAuth.getCurrentUser();
 
                             assert MainActivity.firebaseUser != null;
                             Log.i(MainActivity.TAG,"Login success, ID : "+ MainActivity.firebaseUser.getUid() + ", Email : "+ MainActivity.firebaseUser.getEmail());
                             progressBar.setVisibility(View.GONE);
+                            dialog_login.show();
+
                         } else {
                             Log.i(MainActivity.TAG,"Login Fail");
+                            Toast.makeText(LoginPage.this,R.string.toast_loginFail,Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
-
                 break;
 
             case R.id.login_button_registered:
