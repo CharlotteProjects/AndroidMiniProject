@@ -11,6 +11,8 @@ import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Init Firebase
     public static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    public static FirebaseAuth firebaseAuth  = FirebaseAuth.getInstance();
+    public static FirebaseUser firebaseUser;
 
     // List for store the firebase data
     public static List<String> itemNameList = new ArrayList<>();
@@ -108,6 +112,17 @@ public class MainActivity extends AppCompatActivity {
 
         //endregion
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        firebaseUser = MainActivity.firebaseAuth.getCurrentUser();
+        if(firebaseUser == null){
+            Log.i(TAG, "Have not login.");
+        } else {
+            Log.i(TAG, "Had login, ID : " + firebaseUser.getUid());
+        }
     }
 
     // Set my sign in ID

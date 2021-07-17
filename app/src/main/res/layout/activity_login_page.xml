@@ -89,7 +89,7 @@
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/login_button_forget"
+            android:id="@+id/login_button_forgot"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="100sp"
             android:layout_height="wrap_content"

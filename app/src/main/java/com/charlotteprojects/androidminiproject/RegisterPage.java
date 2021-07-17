@@ -16,9 +16,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.ActionCodeSettings;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +39,8 @@ public class RegisterPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
-        //region Init Register UI and Function
-        // init UI and onClick Listener
+        //region Init Register UI and onClick Listener
+
         EditText editEmail = (EditText) findViewById(R.id.register_edit_email);
         EditText editPW =  (EditText) findViewById(R.id.register_edit_pw);
         EditText editPWConfirm = (EditText) findViewById(R.id.register_edit_pwAgain);
@@ -44,39 +52,101 @@ public class RegisterPage extends AppCompatActivity {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the input String
-                String email = editEmail.getText().toString();
-                String PW = editPW.getText().toString();
-                String PWConfirm = editPWConfirm.getText().toString();
-                String shopName = editShopName.getText().toString();
 
-                // Check the input String is not empty.
+                //region Get the input String & Check empty
+                String email = editEmail.getText().toString().trim();
+                String PW = editPW.getText().toString().trim();
+                String PWConfirm = editPWConfirm.getText().toString().trim();
+                String shopName = editShopName.getText().toString().trim();
+
+                // Check the input String is not empty and correct email
                 if(email.isEmpty()){
-                    Toast.makeText(RegisterPage.this,R.string.toast_inputEmail,Toast.LENGTH_LONG).show();
+                    editEmail.setError(getResources().getString(R.string.toast_registerEmail));
+                    Toast.makeText(RegisterPage.this,R.string.toast_registerEmail,Toast.LENGTH_LONG).show();
+                    return;
+                } else if(!email.contains("@") || !email.contains(".") || email.contains("/") || email.contains("|") || email.contains("!") ||
+                        email.contains("#") || email.contains("$") || email.contains("%") || email.contains("^") || email.contains("&") ||
+                        email.contains("*") || email.contains("(") || email.contains(")") || email.contains("+") || email.contains("=") ||
+                        email.contains("{") || email.contains("}") || email.contains("[") || email.contains("]") || email.contains(":") ||
+                        email.contains(";") || email.contains("'") || email.contains("?") || email.contains(",") || email.contains("<") ||
+                        email.contains(">")){
+                    editEmail.setError(getResources().getString(R.string.toast_registerCorrectEmail));
+                    Toast.makeText(RegisterPage.this,R.string.toast_registerCorrectEmail,Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 // Check the email is used or not
+                /*
                 if(MainActivity.CheckEmailHaveBeSignUp(email)){
-                    Toast.makeText(RegisterPage.this,R.string.toast_emailHaveBeSignUp,Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterPage.this,R.string.toast_registerEmail,Toast.LENGTH_LONG).show();
                     return;
                 }
+
+                 */
+
+                // Check the Confirm PW is empty or not match
                 if(PW.isEmpty()){
-                    Toast.makeText(RegisterPage.this,R.string.toast_inputPW,Toast.LENGTH_LONG).show();
+                    editPW.setError(getResources().getString(R.string.toast_registerPW));
+                    Toast.makeText(RegisterPage.this,R.string.toast_registerPW,Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 // Check the Confirm PW is empty or not match
                 if(PWConfirm.isEmpty() ||
                 !PW.equals(PWConfirm)){
-                    Toast.makeText(RegisterPage.this,R.string.toast_inputPWConfirm,Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(shopName.isEmpty()){
-                    Toast.makeText(RegisterPage.this,R.string.toast_inputShopName,Toast.LENGTH_LONG).show();
+                    editPWConfirm.setError(getResources().getString(R.string.toast_registerCorrectEmail));
+                    Toast.makeText(RegisterPage.this,R.string.toast_registerCorrectEmail,Toast.LENGTH_LONG).show();
                     return;
                 }
 
+                if(shopName.isEmpty()){
+                    editShopName.setError(getResources().getString(R.string.toast_registerShopName));
+                    Toast.makeText(RegisterPage.this,R.string.toast_registerShopName,Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                //endregion
+
+                MainActivity.firebaseAuth.createUserWithEmailAndPassword(email, PW)
+                        .addOnCompleteListener(RegisterPage.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(MainActivity.TAG, "createUserWithEmail:success");
+                                    FirebaseUser user = MainActivity.firebaseAuth.getCurrentUser();
+
+                                    //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                    if(user.isEmailVerified()){
+
+                                    } else {
+                                        user.sendEmailVerification();
+                                    }
+
+                                } else {
+                                    Log.w(MainActivity.TAG, "createUserWithEmail:failure", task.getException());
+                                    Toast.makeText(RegisterPage.this,R.string.toast_loginFail,Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                RegisterPage.this.onBackPressed();
+                /*
+                mAuth.createUserWithEmailAndPassword(email, PW)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    Log.i(MainActivity.TAG,
+                                            "email : "+ email +
+                                                    ", pw : " + PW +
+                                                    ", Shop Name : " + shopName);
+                                } else {
+                                    Log.i(MainActivity.TAG, "Fail");
+                                }
+                            }
+                        });
+/*
                 Map<String, String> userData = new HashMap<>();
                 userData.put("id", email);
                 userData.put("name", shopName);
@@ -130,9 +200,9 @@ public class RegisterPage extends AppCompatActivity {
                                 Log.e(MainActivity.TAG,"Upload Firebase Error : ", e);
                             }
                         });
+            */
             }
         });
-
         //endregion
     }
 }

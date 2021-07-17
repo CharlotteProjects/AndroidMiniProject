@@ -10,21 +10,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginPage extends AppCompatActivity {
+public class LoginPage extends AppCompatActivity implements View.OnClickListener{
+
+    private EditText editID, editPW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        //region Set Login Button and Function
-        EditText editID = (EditText) findViewById(R.id.login_edit_id);
-        EditText editPW = (EditText) findViewById(R.id.login_edit_pw);
+        //region init Button onClick function
+
+        editID = (EditText) findViewById(R.id.login_edit_id);
+        editPW = (EditText) findViewById(R.id.login_edit_pw);
 
         Button buttonLogin = (Button) findViewById(R.id.login_button_login);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        buttonLogin.setOnClickListener(this);
+
+        Button buttonRegister = (Button) findViewById(R.id.login_button_registered);
+        buttonRegister.setOnClickListener(this);
+
+        Button buttonForgot = (Button) findViewById(R.id.login_button_forgot);
+        buttonForgot.setOnClickListener(this);
+        //endregion
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.login_button_login:
                 String ID = editID.getText().toString();
                 String PW = editPW.getText().toString();
 
@@ -43,20 +59,11 @@ public class LoginPage extends AppCompatActivity {
                         Toast.makeText(LoginPage.this,R.string.toast_loginFail,Toast.LENGTH_LONG).show();
                     }
                 }
-            }
-        });
-
-        //endregion
-
-        //region Set link to Register Page
-        Button buttonRegister = (Button) findViewById(R.id.login_button_registered);
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.login_button_registered:
                 Intent intent = new Intent(LoginPage.this, RegisterPage.class);
                 startActivity(intent);
-            }
-        });
-        //endregion
+                break;
+        }
     }
 }
