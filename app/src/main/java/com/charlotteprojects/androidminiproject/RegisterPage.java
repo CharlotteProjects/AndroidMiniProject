@@ -21,6 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
+import org.jetbrains.annotations.NotNull;
+
 public class RegisterPage extends AppCompatActivity {
 
     private ProgressBar progressBar;
@@ -38,9 +40,8 @@ public class RegisterPage extends AppCompatActivity {
         EditText editEmail = (EditText) findViewById(R.id.register_edit_email);
         EditText editPW =  (EditText) findViewById(R.id.register_edit_pw);
         EditText editPWConfirm = (EditText) findViewById(R.id.register_edit_pwAgain);
-        EditText editShopName = (EditText) findViewById(R.id.register_edit_name);
-        LinearLayout linearLayoutRegisterGroup = (LinearLayout) findViewById(R.id.register_registerGroup);
-        TextView textSuccsee = (TextView) findViewById(R.id.register_text_success);
+        EditText editUserName = (EditText) findViewById(R.id.register_edit_userName);
+        EditText editShopName = (EditText) findViewById(R.id.register_edit_shopName);
 
         Button buttonConfirm = (Button) findViewById(R.id.register_button_register);
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
@@ -48,10 +49,11 @@ public class RegisterPage extends AppCompatActivity {
             public void onClick(View v) {
 
                 //region Get the input String & Check empty
-                String email = editEmail.getText().toString().trim();
-                String PW = editPW.getText().toString().trim();
-                String PWConfirm = editPWConfirm.getText().toString().trim();
-                String shopName = editShopName.getText().toString().trim();
+                String email = editEmail.getText().toString();
+                String PW = editPW.getText().toString();
+                String PWConfirm = editPWConfirm.getText().toString();
+                String userName = editUserName.getText().toString();
+                String shopName = editShopName.getText().toString();
 
                 // Check the input String is not empty and correct email
                 if(email.isEmpty()){
@@ -97,6 +99,13 @@ public class RegisterPage extends AppCompatActivity {
                     return;
                 }
 
+                if(userName.isEmpty()){
+                    editUserName.setError(getResources().getString(R.string.toast_registerShopName));
+                    editUserName.requestFocus();
+                    Toast.makeText(RegisterPage.this,R.string.toast_registerUserName,Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if(shopName.isEmpty()){
                     editShopName.setError(getResources().getString(R.string.toast_registerShopName));
                     editShopName.requestFocus();
@@ -119,12 +128,25 @@ public class RegisterPage extends AppCompatActivity {
                                     assert MainActivity.firebaseUser != null;
                                     Log.i(MainActivity.TAG, "Create user with Email : success, ID : " + MainActivity.firebaseUser.getUid());
 
+                                    MainActivity.myProfile = new User(userName, email, shopName);
+                                    MainActivity.firebaseDatabase.getReference("Users")
+                                            .child(MainActivity.firebaseUser.getUid())
+                                            .setValue(MainActivity.myProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                            if(task.isSuccessful())
+                                                Log.i(MainActivity.TAG,"Upload user profile success !");
+                                            else
+                                                Log.e(MainActivity.TAG,"Set data Failed !", task.getException());
+                                        }
+                                    });
+
                                     MainActivity.firebaseUser.sendEmailVerification();
                                     Log.i(MainActivity.TAG,"Sent a confirm Email to user.");
 
                                     dialog_register.show();
                                 } else {
-                                    Log.w(MainActivity.TAG, "Create user with Email : failure", task.getException());
+                                    Log.e(MainActivity.TAG, "Create user with Email : failure", task.getException());
                                     Toast.makeText(RegisterPage.this,R.string.toast_registerFail,Toast.LENGTH_LONG).show();
                                 }
                                 progressBar.setVisibility(View.GONE);

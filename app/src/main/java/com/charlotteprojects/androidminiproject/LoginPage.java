@@ -17,6 +17,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,8 +27,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
     private EditText editID, editPW;
     private ProgressBar progressBar;
-
-    private AlertDialog.Builder dialog_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +51,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         buttonForgot.setOnClickListener(this);
 
         //endregion
-
-        //region init AlertDialog
-        dialog_login= new AlertDialog.Builder(LoginPage.this);
-        dialog_login.setTitle(R.string.alertDialog_loginSuccess);
-        dialog_login.setMessage(R.string.alertDialog_loginWelcome);
-        dialog_login.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Intent intent = new Intent(LoginPage.this, ManagerPage.class);
-                startActivity(intent);
-            }
-        });
-
-        //endregion
-
     }
 
     // Set the OnClickListener to each button
@@ -103,13 +89,43 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                         if(task.isSuccessful()){
                             MainActivity.firebaseUser = MainActivity.firebaseAuth.getCurrentUser();
 
+                            MainActivity.firebaseDatabase.getReference("Users")
+                                    .child(MainActivity.firebaseUser.getUid())
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                            MainActivity.myProfile = snapshot.getValue((User.class));
+                                            Log.i(MainActivity.TAG,"Get User Profile Success");
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                                        }
+                                    });
+
                             assert MainActivity.firebaseUser != null;
                             Log.i(MainActivity.TAG,"Login success, ID : "+ MainActivity.firebaseUser.getUid() + ", Email : "+ MainActivity.firebaseUser.getEmail());
                             progressBar.setVisibility(View.GONE);
+
+                            //region init AlertDialog
+                            AlertDialog.Builder dialog_login = new AlertDialog.Builder(LoginPage.this);
+                            dialog_login.setTitle(R.string.alertDialog_loginSuccess);
+                            String st = getResources().getString(R.string.alertDialog_loginWelcome) + MainActivity.myProfile.userName;
+                            dialog_login.setMessage(st);
+                            dialog_login.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    Intent intent = new Intent(LoginPage.this, ManagerPage.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            //endregion
                             dialog_login.show();
 
                         } else {
-                            Log.i(MainActivity.TAG,"Login Fail");
+                            Log.e(MainActivity.TAG,"Login Fail");
                             Toast.makeText(LoginPage.this,R.string.toast_loginFail,Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }

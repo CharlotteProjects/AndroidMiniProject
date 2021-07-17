@@ -7,11 +7,12 @@
     <string name="toast_registerPW">Please enter password.</string>
     <string name="toast_registerPWSix">Please enter least 6 characters password .</string>
     <string name="toast_registerPWConfirm">Please enter password again.</string>
+    <string name="toast_registerUserName">Please enter your user name.</string>
     <string name="toast_registerShopName">Please enter your shop name.</string>
     <string name="toast_registerFail">Sign up Fail. Please try again.</string>
 
     <string name="alertDialog_loginSuccess">Login Success</string>
-    <string name="alertDialog_loginWelcome">Welcome to Where\'s Shop !</string>
+    <string name="alertDialog_loginWelcome">Welcome to Where\'s Shop !\t</string>
     <string name="alertDialog_registerSuccess">Sign up Success</string>
     <string name="alertDialog_registerWelcome">Welcome to Where\'s Shop !\nPlease Check your email for confirm account.</string>
 
@@ -39,7 +40,8 @@
     <string name="login_login">Login</string>
     <string name="login_forget">Forgot Password</string>
 
-    <string name="register_name">Shop Name :</string>
+    <string name="register_name">User Name :</string>
+    <string name="register_shopName">Shop Name :</string>
     <string name="register_email">Enter your email :</string>
     <string name="register_password">Enter password (Least 6 characters) :</string>
     <string name="register_password_again">Confirm password :</string>
