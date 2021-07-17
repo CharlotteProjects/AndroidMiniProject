@@ -63,15 +63,20 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             }
         });
 
+        //endregion
+
     }
 
+    // Set the OnClickListener to each button
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()){
             case R.id.login_button_login:
                 String email = editID.getText().toString();
                 String password = editPW.getText().toString();
 
+                // Check Email
                 if(email.isEmpty()){
                     editID.setError(getResources().getString(R.string.toast_registerEmail));
                     editID.requestFocus();
@@ -79,6 +84,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                     return;
                 }
 
+                // Check Password
                 if(password.isEmpty()){
                     editPW.setError(getResources().getString(R.string.toast_registerPW));
                     editID.requestFocus();
@@ -90,6 +96,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
                 progressBar.setVisibility(View.VISIBLE);
 
+                // Login Account
                 MainActivity.firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
@@ -111,7 +118,11 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                 break;
 
             case R.id.login_button_registered:
-                Intent intent = new Intent(LoginPage.this, RegisterPage.class);
+                intent = new Intent(LoginPage.this, RegisterPage.class);
+                startActivity(intent);
+                break;
+            case R.id.login_button_forgot:
+                intent = new Intent(LoginPage.this, ForgotPage.class);
                 startActivity(intent);
                 break;
         }

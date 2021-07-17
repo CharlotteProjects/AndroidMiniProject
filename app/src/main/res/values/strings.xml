@@ -33,19 +33,22 @@
     <string name="itemList_found">Found Result :</string>
     <string name="itemList_notFound">Found Result : Not Match …</string>
 
-    <string name="login_title">Login</string>
     <string name="login_id">User ID :</string>
     <string name="login_pw">Password :</string>
     <string name="login_registered">Sign up</string>
     <string name="login_login">Login</string>
     <string name="login_forget">Forgot Password</string>
 
-
-    <string name="register_title">Sign up Account</string>
     <string name="register_name">Shop Name :</string>
     <string name="register_email">Enter your email :</string>
     <string name="register_password">Enter password (Least 6 characters) :</string>
     <string name="register_password_again">Confirm password :</string>
     <string name="register_button_register">Register</string>
 
+    <string name="forgot_send">Send</string>
+    <string name="forget_text_title">Forget your password?</string>
+    <string name="forgot_text_content">Don\'t worry. Resetting your password is easy, just tell us the email address you registered with Where\'s Shop.</string>
+    <string name="forget_text_titleRe">Reset Your Password</string>
+    <string name="forgot_text_contenteRe">We have sent a reset password email to\n</string>
+    <string name="forgot_text_contenteRe2">\nPlease click reset password link to set your new password.</string>
 </resources>

@@ -36,13 +36,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginPage" />
         </activity>
+        <activity android:name=".ForgotPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginPage" />
+        </activity>
         <activity android:name=".ManagerPage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-
     </application>
 
 </manifest>

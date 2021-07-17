@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+// This is a Singleton , for other page get set Firebase data
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // For Debug

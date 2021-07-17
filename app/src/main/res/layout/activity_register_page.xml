@@ -7,13 +7,12 @@
     tools:context=".RegisterPage"
     android:layout_margin="15sp">
 
-    <TextView
-        android:id="@+id/register_title"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/register_image_title"
+        android:layout_width="300sp"
         android:layout_height="wrap_content"
-        android:text="@string/register_title"
-        android:layout_marginTop="30sp"
-        android:textSize="30sp"
+        android:layout_margin="15sp"
+        android:src="@drawable/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +26,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_title"
+        app:layout_constraintTop_toBottomOf="@+id/register_image_title"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
