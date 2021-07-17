@@ -54,6 +54,7 @@ public class SearchPage extends AppCompatActivity {
                         // Clear the list because every time in this page will get again
                         MainActivity.itemNameList.clear();
                         MainActivity.itemPriceList.clear();
+                        MainActivity.itemEmailList.clear();
 
                         if (task.isSuccessful()) {
                             int index = 0;
@@ -66,13 +67,17 @@ public class SearchPage extends AppCompatActivity {
                                 // Set the data to item list and display on the log
                                 if(array.length > 0){
                                     String itemPrice = array[0].substring(7);
-                                    String itemName = array[1].substring(6, array[1].length()-1);
+                                    String itemName = array[1].substring(6);
+                                    String itemEmail = array[2].substring(7, array[2].length()-1);
 
                                     MainActivity.itemPriceList.add(itemPrice);
                                     MainActivity.itemNameList.add(itemName);
+                                    MainActivity.itemEmailList.add(itemEmail);
 
                                     Log.i(MainActivity.TAG,
-                                            "[" + MainActivity.itemNameList.get(index)+"] is $ : " + MainActivity.itemPriceList.get(index),
+                                            "[" + MainActivity.itemNameList.get(index)+"] is $ : " +
+                                                    MainActivity.itemPriceList.get(index) + ", Email :"+
+                                                    MainActivity.itemEmailList.get(index),
                                             task.getException()
                                     );
                                     index++;

@@ -42,20 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // List for store the firebase data
     public static List<String> itemNameList = new ArrayList<>();
     public static List<String> itemPriceList = new ArrayList<>();
+    public static List<String> itemEmailList = new ArrayList<>();
 
     // Store user data
     public static User myProfile;
-
-    // Login ID & PW
-    /*
-    private static List<String> UserIDList = new ArrayList<>();
-    private static List<String> loginIDList = new ArrayList<>();
-    private static List<String> loginPWList = new ArrayList<>();
-    private static List<String> UserNameList = new ArrayList<>();
-    private static String myId;
-    private static boolean isLogined = false;
-
-     */
 
     private Button buttonStart, buttonLogin, buttonLogout;
 

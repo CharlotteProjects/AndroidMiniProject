@@ -12,6 +12,7 @@
     <string name="toast_registerFail">Sign up Fail. Please try again.</string>
     <string name="toast_manage_geo">Please input latitude and longitude.</string>
     <string name="toast_manage_myAddressEmpty">Your shop address is empty.</string>
+    <string name="toast_addItem_input">Item name and price can not empty.</string>
 
     <string name="alertDialog_loginSuccess">Login Success</string>
     <string name="alertDialog_loginWelcome">Welcome to Where\'s Shop !\t</string>
@@ -19,6 +20,8 @@
     <string name="alertDialog_registerWelcome">Welcome to Where\'s Shop !\nPlease Check your email for confirm account.</string>
     <string name="alertDialog_message">Message</string>
     <string name="alertDialog_address">Add shop address success. Your can click on My Address Button.</string>
+    <string name="alertDialog_addItem">You release a new item :\n</string>
+
 
     <string name="item_picture">Item Image</string>
     <string name="item_name">Item Name : </string>
@@ -58,15 +61,20 @@
     <string name="forgot_text_contenteRe">We have sent a reset password email to\n</string>
     <string name="forgot_text_contenteRe2">\nPlease click reset password link to set your new password.</string>
 
-    <string name="manage_text_welcome">Welcome Where\'s Shop !</string>
+    <string name="manage_text_welcome">Welcome to Where\'s Shop !</string>
     <string name="manage_text_myShop">My Shop :</string>
     <string name="manage_text_address">Add My Shop Address</string>
     <string name="manage_text_latitude">Latitude :</string>
     <string name="manage_text_longitude">Longitude :</string>
     <string name="manage_button_add">Add New Item</string>
     <string name="manage_button_address">Add Address</string>
-    <string name="manage_title">Manage Items</string>
+    <string name="manage_title">Manage Your Items</string>
+    <string name="manage_button_myAddress">My Address</string>
+
+    <string name="addItem_text_name">Item Name :</string>
+    <string name="addItem_text_price">Item Price :</string>
 
     <string name="title_activity_my_shop_address">Map</string>
-    <string name="manage_button_myAddress">My Address</string>
+    <string name="addItem_text_title">Create a New Item</string>
+    <string name="addItem_button_add">Release Item</string>
 </resources>

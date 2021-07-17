@@ -36,6 +36,9 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
 
         Button buttonMyAddress = (Button) findViewById(R.id.manage_button_myAddress);
         buttonMyAddress.setOnClickListener(this);
+
+        Button buttonAddItem =(Button) findViewById(R.id.manage_button_addItem);
+        buttonAddItem.setOnClickListener(this);
     }
 
     // init OnClick Button
@@ -48,7 +51,9 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
                 String longitude = edit_longitude.getText().toString();
 
                 // Check the input is empty or not
-                if(latitude.isEmpty() || longitude.isEmpty()){
+                if(latitude.isEmpty() || longitude.isEmpty() ||
+                        Double.parseDouble(latitude) > 180 || Double.parseDouble(latitude) < -180  ||
+                        Double.parseDouble(longitude) > 180 || Double.parseDouble(longitude) < -180 ){
                     Toast.makeText(ManagerPage.this,R.string.toast_manage_geo,Toast.LENGTH_LONG).show();
                     edit_latitude.setSelected(false);
                     edit_longitude.setSelected(false);
@@ -81,6 +86,11 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
                     Intent intent = new Intent(ManagerPage.this, MyShopAddress.class);
                     startActivity(intent);
                 }
+                break;
+
+            case R.id.manage_button_addItem:
+                Intent intent = new Intent(ManagerPage.this, AddItemPage.class);
+                startActivity(intent);
                 break;
         }
     }
