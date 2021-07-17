@@ -86,20 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             buttonLogout.setVisibility(View.VISIBLE);
 
             // When have login record then init the user profile
-            MainActivity.firebaseDatabase.getReference("Users")
-                    .child(MainActivity.firebaseUser.getUid())
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                            MainActivity.myProfile = snapshot.getValue(User.class);
-                            Log.i(MainActivity.TAG,"Get User Profile Success at Start app");
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                        }
-                    });
+            MainActivity.GetMyProfileFromFirebase();
         }
 
         //endregion
@@ -134,5 +121,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
         }
+    }
+
+    //  pload the user profile to Firebase
+    public static void UploadMyProfile(){
+        MainActivity.firebaseDatabase.getReference("Users")
+                .child(MainActivity.firebaseUser.getUid())
+                .setValue(MainActivity.myProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                if(task.isSuccessful())
+                    Log.i(MainActivity.TAG,"Upload user profile success !");
+                else
+                    Log.e(MainActivity.TAG,"Set data Failed !", task.getException());
+            }
+        });
+    }
+
+    // Download the user profile from Firebase
+    public static void GetMyProfileFromFirebase(){
+        MainActivity.firebaseDatabase.getReference("Users")
+                .child(MainActivity.firebaseUser.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        MainActivity.myProfile = snapshot.getValue(User.class);
+                        Log.i(MainActivity.TAG,"Get User Profile Success");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
     }
 }

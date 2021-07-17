@@ -88,21 +88,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             MainActivity.firebaseUser = MainActivity.firebaseAuth.getCurrentUser();
-
-                            MainActivity.firebaseDatabase.getReference("Users")
-                                    .child(MainActivity.firebaseUser.getUid())
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                            MainActivity.myProfile = snapshot.getValue((User.class));
-                                            Log.i(MainActivity.TAG,"Get User Profile Success");
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                                        }
-                                    });
+                            MainActivity.GetMyProfileFromFirebase();
 
                             assert MainActivity.firebaseUser != null;
                             Log.i(MainActivity.TAG,"Login success, ID : "+ MainActivity.firebaseUser.getUid() + ", Email : "+ MainActivity.firebaseUser.getEmail());

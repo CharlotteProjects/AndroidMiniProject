@@ -129,17 +129,8 @@ public class RegisterPage extends AppCompatActivity {
                                     Log.i(MainActivity.TAG, "Create user with Email : success, ID : " + MainActivity.firebaseUser.getUid());
 
                                     MainActivity.myProfile = new User(userName, email, shopName);
-                                    MainActivity.firebaseDatabase.getReference("Users")
-                                            .child(MainActivity.firebaseUser.getUid())
-                                            .setValue(MainActivity.myProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull @NotNull Task<Void> task) {
-                                            if(task.isSuccessful())
-                                                Log.i(MainActivity.TAG,"Upload user profile success !");
-                                            else
-                                                Log.e(MainActivity.TAG,"Set data Failed !", task.getException());
-                                        }
-                                    });
+
+                                    MainActivity.UploadMyProfile();
 
                                     MainActivity.firebaseUser.sendEmailVerification();
                                     Log.i(MainActivity.TAG,"Sent a confirm Email to user.");
