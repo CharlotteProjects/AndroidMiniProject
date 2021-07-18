@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //  upload the user profile to Firebase
+    // Upload the user profile to Firebase
     public static void UploadMyProfile(){
         MainActivity.firebaseDatabase.getReference("Users")
                 .child(MainActivity.firebaseUser.getUid())
@@ -173,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
                     }
                 });
     }

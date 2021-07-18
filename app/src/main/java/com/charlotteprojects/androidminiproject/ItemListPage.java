@@ -95,6 +95,7 @@ public class ItemListPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if(MainActivity.itemLatitudeList.get(position).equals("1024") || MainActivity.itemLongitudeList.get(position).equals("1024")){
+                    Toast.makeText(ItemListPage.this,R.string.toast_noAddress,Toast.LENGTH_LONG).show();
                     Log.i(MainActivity.TAG,"No latitude & longitude");
                 } else {
                     Intent intent = new Intent(ItemListPage.this, MyShopAddress.class);

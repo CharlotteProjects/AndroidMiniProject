@@ -97,8 +97,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                             //region init AlertDialog
                             AlertDialog.Builder dialog_login = new AlertDialog.Builder(LoginPage.this);
                             dialog_login.setTitle(R.string.alertDialog_loginSuccess);
-                            String st = getResources().getString(R.string.alertDialog_loginWelcome) + MainActivity.myProfile.userName;
-                            dialog_login.setMessage(st);
+                            dialog_login.setMessage(R.string.alertDialog_loginWelcome);
                             dialog_login.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
@@ -107,8 +106,9 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                                 }
                             });
 
-                            //endregion
                             dialog_login.show();
+
+                            //endregion
 
                         } else {
                             Log.e(MainActivity.TAG,"Login Fail");

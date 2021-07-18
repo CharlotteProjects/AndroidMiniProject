@@ -10,8 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ManagerPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,31 +50,31 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
         Button buttonMyAddress = (Button) findViewById(R.id.manage_button_myAddress);
         buttonMyAddress.setOnClickListener(this);
 
-        Button buttonAddItem =(Button) findViewById(R.id.manage_button_addItem);
+        Button buttonAddItem = (Button) findViewById(R.id.manage_button_addItem);
         buttonAddItem.setOnClickListener(this);
 
         //endregion
 
         //region init alertDialog
 
-        dialog_map= new AlertDialog.Builder(ManagerPage.this);
+        dialog_map = new AlertDialog.Builder(ManagerPage.this);
         dialog_map.setTitle(R.string.alertDialog_message);
         dialog_map.setMessage(R.string.alertDialog_address);
-        dialog_map.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+        dialog_map.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
 
             }
         });
 
-        dialog_addItem= new AlertDialog.Builder(ManagerPage.this);
+        dialog_addItem = new AlertDialog.Builder(ManagerPage.this);
         dialog_addItem.setTitle(R.string.alertDialog_message);
         dialog_addItem.setMessage(R.string.alertDialog_verified);
-        dialog_addItem.setPositiveButton("Send Again",new DialogInterface.OnClickListener() {
+        dialog_addItem.setPositiveButton("Send Again", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 MainActivity.firebaseUser.sendEmailVerification();
-                Log.i(MainActivity.TAG,"Sent a confirm Email to user.");
+                Log.i(MainActivity.TAG, "Sent a confirm Email to user.");
             }
         });
         dialog_addItem.setNeutralButton("OK", new DialogInterface.OnClickListener() {

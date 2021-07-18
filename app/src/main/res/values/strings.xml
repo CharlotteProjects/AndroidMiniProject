@@ -44,7 +44,7 @@
     <string name="itemList_found">Found Result :</string>
     <string name="itemList_notFound">Found Result : Not Match …</string>
 
-    <string name="login_id">User ID :</string>
+    <string name="login_id">User Email :</string>
     <string name="login_pw">Password :</string>
     <string name="login_registered">Sign up</string>
     <string name="login_login">Login</string>

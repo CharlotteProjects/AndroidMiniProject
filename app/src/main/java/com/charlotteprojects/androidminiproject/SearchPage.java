@@ -78,26 +78,31 @@ public class SearchPage extends AppCompatActivity {
                                     MainActivity.itemEmailList.add(itemEmail);
 
                                     // check the item shop name with user list
-                                    boolean noShopName = true;
+
                                     for(int j = 0; j < MainActivity.userList.size(); j++){
                                         // Check which Email is same
                                         if(MainActivity.userList.get(j).userEmail.equals(MainActivity.itemEmailList.get(index))){
                                             MainActivity.itemShopNameList.add(MainActivity.userList.get(j).shopName);
-                                            MainActivity.itemLatitudeList.add(MainActivity.userList.get(j).latitude);
-                                            MainActivity.itemLongitudeList.add(MainActivity.userList.get(j).longitude);
-                                            noShopName = false;
+
+                                            if(MainActivity.userList.get(j).latitude.isEmpty())
+                                                MainActivity.itemLatitudeList.add("1024");
+                                            else
+                                                MainActivity.itemLatitudeList.add(MainActivity.userList.get(j).latitude);
+
+                                            if(MainActivity.userList.get(j).longitude.isEmpty())
+                                                MainActivity.itemLongitudeList.add("1024");
+                                            else
+                                                MainActivity.itemLongitudeList.add(MainActivity.userList.get(j).longitude);
                                         }
-                                    }
-                                    if(noShopName){
-                                        MainActivity.itemShopNameList.add("-");
-                                        MainActivity.itemLatitudeList.add("1024");
-                                        MainActivity.itemLongitudeList.add("1024");
                                     }
 
                                     Log.i(MainActivity.TAG,
                                             "[" + MainActivity.itemNameList.get(index)+"] is $ : " +
                                                     MainActivity.itemPriceList.get(index) + ", Email :"+
-                                                    MainActivity.itemEmailList.get(index),
+                                                    MainActivity.itemEmailList.get(index) + ", Shop Name : " +
+                                                    MainActivity.itemShopNameList.get(index) + ", geo : " +
+                                                    MainActivity.itemLatitudeList.get(index) + " : " +
+                                                    MainActivity.itemLongitudeList.get(index),
                                             task.getException()
                                     );
                                     index++;
@@ -166,6 +171,7 @@ public class SearchPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if(MainActivity.itemLatitudeList.get(position).equals("1024") || MainActivity.itemLongitudeList.get(position).equals("1024")){
+                    Toast.makeText(SearchPage.this,R.string.toast_noAddress,Toast.LENGTH_LONG).show();
                     Log.i(MainActivity.TAG,"No latitude & longitude");
                 } else {
                     Intent intent = new Intent(SearchPage.this, MyShopAddress.class);
