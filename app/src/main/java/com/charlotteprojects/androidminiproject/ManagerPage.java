@@ -85,6 +85,40 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
         });
 
         //endregion
+
+        loadingMyItem();
+    }
+
+    private void loadingMyItem(){
+        ListView listView = (ListView) findViewById(R.id.manage_listView);
+
+        List<HashMap<String, Object>> myList = new ArrayList<HashMap<String, Object>>();
+
+        for(int i = 0; i < MainActivity.itemNameList.size() ; i++){
+            HashMap<String, Object> item = new HashMap<String, Object>();
+
+            // Check the which item match with Email
+            if(MainActivity.itemEmailList.get(i).equalsIgnoreCase(MainActivity.myProfile.userEmail)){
+                Log.i(MainActivity.TAG,"["+MainActivity.itemNameList.get(i) + "] is match !");
+
+                item.put("name", MainActivity.itemNameList.get(i));
+                item.put("price", MainActivity.itemPriceList.get(i));
+                item.put("shopName", MainActivity.itemShopNameList.get(i));
+                item.put("image",R.drawable.construction2);
+
+                myList.add(item);
+            }
+        }
+
+        SimpleAdapter adapter = new SimpleAdapter(
+                this,
+                myList,
+                R.layout.item_page,
+                new String[]{"name","price","shopName","image"},
+                new int[]{R.id.list_name, R.id.list_price, R.id.list_shopName,R.id.list_image}
+        );
+
+        listView.setAdapter(adapter);
     }
 
     // init OnClick Button

@@ -67,6 +67,7 @@ public class ItemListPage extends AppCompatActivity {
                 item.put("name", MainActivity.itemNameList.get(i));
                 item.put("price", MainActivity.itemPriceList.get(i));
                 item.put("shopName", MainActivity.itemShopNameList.get(i));
+                item.put("image",R.drawable.construction2);
                 tempName.add(MainActivity.itemNameList.get(i));
                 tempPrice.add(MainActivity.itemPriceList.get(i));
                 tempLatitude.add(MainActivity.itemLatitudeList.get(i));
@@ -74,7 +75,6 @@ public class ItemListPage extends AppCompatActivity {
                 tempShopName.add(MainActivity.itemShopNameList.get(i));
                 tempImageURL.add(MainActivity.itemImageURL.get(i));
 
-                // item.put("image",imageAddress[i]);
                 myList.add(item);
 
                 // Set the Text
@@ -90,8 +90,8 @@ public class ItemListPage extends AppCompatActivity {
                 this,
                 myList,
                 R.layout.item_page,
-                new String[]{"name","price","shopName"},
-                new int[]{R.id.list_name, R.id.list_price, R.id.list_shopName}
+                new String[]{"name","price","shopName","image"},
+                new int[]{R.id.list_name, R.id.list_price, R.id.list_shopName,R.id.list_image}
         );
 
         listView.setAdapter(adapter);

@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +31,8 @@ import java.util.Objects;
 
 // This is a Singleton , for other page get set Firebase data
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private boolean doubleTap = false;
 
     // For Debug
     public static final String TAG = "DebugLog";
@@ -113,6 +117,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         //endregion
+    }
+
+    //Double Click Exit
+    @Override
+    public void onBackPressed(){
+        if(doubleTap){
+            super.onBackPressed();
+        } else {
+            Toast.makeText(
+                    this,
+                    R.string.toast_exit,
+                    Toast.LENGTH_SHORT).show();
+
+            doubleTap = true;
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleTap = false;
+                }
+            }, 500);
+        }
     }
 
     @Override
