@@ -69,13 +69,15 @@ public class RegisterPage extends AppCompatActivity {
                 }
 
                 // Check the email is used or not
-                /*
-                if(MainActivity.CheckEmailHaveBeSignUp(email)){
-                    Toast.makeText(RegisterPage.this,R.string.toast_registerEmail,Toast.LENGTH_LONG).show();
-                    return;
+                for(int i = 0; i < MainActivity.userList.size(); i++){
+                    // Check which Email is same
+                    if(MainActivity.userList.get(i).userEmail.equalsIgnoreCase(email)){
+                        editEmail.setError(getResources().getString(R.string.toast_registerSameEmail));
+                        editEmail.requestFocus();
+                        Toast.makeText(RegisterPage.this,R.string.toast_registerSameEmail,Toast.LENGTH_LONG).show();
+                        return;
+                    }
                 }
-
-                 */
 
                 // Check the Confirm PW is empty or not match
                 if(PW.isEmpty()){
@@ -117,6 +119,7 @@ public class RegisterPage extends AppCompatActivity {
 
                 // Create Firebase Account by Email
                 progressBar.setVisibility(View.VISIBLE);
+                buttonConfirm.setVisibility(View.GONE);
                 MainActivity.firebaseAuth.createUserWithEmailAndPassword(email, PW)
                         .addOnCompleteListener(RegisterPage.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -139,6 +142,7 @@ public class RegisterPage extends AppCompatActivity {
                                 } else {
                                     Log.e(MainActivity.TAG, "Create user with Email : failure", task.getException());
                                     Toast.makeText(RegisterPage.this,R.string.toast_registerFail,Toast.LENGTH_LONG).show();
+                                    buttonConfirm.setVisibility(View.VISIBLE);
                                 }
                                 progressBar.setVisibility(View.GONE);
                             }

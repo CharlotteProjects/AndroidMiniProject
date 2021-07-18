@@ -4,6 +4,7 @@
     <string name="toast_loginFail">Wrong User ID or Password input.</string>
     <string name="toast_registerEmail">Please enter your email.</string>
     <string name="toast_registerCorrectEmail">Please input a correct Email.</string>
+    <string name="toast_registerSameEmail">This Email had been registered. Please input another Email.</string>
     <string name="toast_registerPW">Please enter password.</string>
     <string name="toast_registerPWSix">Please enter least 6 characters password .</string>
     <string name="toast_registerPWConfirm">Please enter password again.</string>
@@ -21,11 +22,12 @@
     <string name="alertDialog_message">Message</string>
     <string name="alertDialog_address">Add shop address success. Your can click on My Address Button.</string>
     <string name="alertDialog_addItem">You release a new item :\n</string>
-
+    <string name="alertDialog_verified">Your account have not verified by Email. Please check your Email </string>
 
     <string name="item_picture">Item Image</string>
     <string name="item_name">Item Name : </string>
-    <string name="item_price">Item Price : </string>
+    <string name="item_price">Item Price (HKD) : $</string>
+    <string name="item_shopName">Shop Name : </string>
 
     <string name="main_button_start">Start</string>
     <string name="main_button_login">Login</string>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10sp"
+    android:paddingTop="15sp"
     android:paddingBottom="10sp"
     android:paddingEnd="10sp"
     tools:context=".MainActivity">
@@ -22,10 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="8sp"
         android:layout_marginStart="15sp"
         android:text="@string/item_name"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/list_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +35,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="10sp"
         android:text="@string/item_name"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/list_text_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -51,7 +50,7 @@
         android:layout_marginTop="8sp"
         android:layout_marginStart="15sp"
         android:text="@string/item_price"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/list_image"
         app:layout_constraintTop_toBottomOf="@+id/list_text_name" />
 
@@ -60,13 +59,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="16sp"
+        android:layout_marginStart="8sp"
         android:text="@string/item_name"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/list_text_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/list_text_price"
         app:layout_constraintTop_toTopOf="@+id/list_text_price" />
+
+    <TextView
+        android:id="@+id/list_text_shopName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="8sp"
+        android:layout_marginStart="15sp"
+        android:text="@string/item_shopName"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/list_image"
+        app:layout_constraintTop_toBottomOf="@+id/list_text_price" />
+
+    <TextView
+        android:id="@+id/list_shopName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16sp"
+        android:text="@string/item_name"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/list_text_shopName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/list_text_shopName"
+        app:layout_constraintTop_toTopOf="@+id/list_text_shopName" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
+        android:src="@drawable/googlemaps_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

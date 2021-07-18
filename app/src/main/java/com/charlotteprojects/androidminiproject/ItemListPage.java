@@ -49,7 +49,7 @@ public class ItemListPage extends AppCompatActivity {
 
         List<HashMap<String, Object>> myList = new ArrayList<HashMap<String, Object>>();
 
-        for(int i = 0;i < MainActivity.itemNameList.size() ; i++){
+        for(int i = 0; i < MainActivity.itemNameList.size() ; i++){
             HashMap<String, Object> item = new HashMap<String, Object>();
 
             // Check the which item match with keyword
@@ -58,6 +58,19 @@ public class ItemListPage extends AppCompatActivity {
 
                 item.put("name", MainActivity.itemNameList.get(i));
                 item.put("price", MainActivity.itemPriceList.get(i));
+
+                // check the item shop name with user list
+                boolean noShopName = true;
+                for(int j = 0; j < MainActivity.userList.size(); j++){
+                    // Check which Email is same
+                    if(MainActivity.userList.get(j).userEmail.equals(MainActivity.itemEmailList.get(i))){
+                        item.put("shopName", MainActivity.userList.get(j).shopName);
+                        noShopName = false;
+                    }
+                }
+                if(noShopName)
+                    item.put("shopName", "-");
+
                 // item.put("image",imageAddress[i]);
                 myList.add(item);
 
@@ -74,8 +87,8 @@ public class ItemListPage extends AppCompatActivity {
                 this,
                 myList,
                 R.layout.item_page,
-                new String[]{"name","price"},
-                new int[]{R.id.list_name, R.id.list_price}
+                new String[]{"name","price","shopName"},
+                new int[]{R.id.list_name, R.id.list_price, R.id.list_shopName}
         );
 
         listView.setAdapter(adapter);

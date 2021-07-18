@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,17 +17,23 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
 
     private EditText edit_latitude, edit_longitude;
 
+    private AlertDialog.Builder dialog_map, dialog_addItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_page);
 
-        // init the Name
+        //region init the user name & shop name
         TextView textUserName = (TextView) findViewById(R.id.manage_text_userName);
         TextView textShopName = (TextView) findViewById(R.id.manage_text_shopName);
 
         textUserName.setText(MainActivity.myProfile.userName);
         textShopName.setText(MainActivity.myProfile.shopName);
+
+        //endregion
+
+        //region init Button onClick
 
         edit_latitude = (EditText) findViewById(R.id.manage_edit_X);
         edit_longitude = (EditText) findViewById(R.id.manage_edit_Y);
@@ -39,6 +46,39 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
 
         Button buttonAddItem =(Button) findViewById(R.id.manage_button_addItem);
         buttonAddItem.setOnClickListener(this);
+
+        //endregion
+
+        //region init alertDialog
+
+        dialog_map= new AlertDialog.Builder(ManagerPage.this);
+        dialog_map.setTitle(R.string.alertDialog_message);
+        dialog_map.setMessage(R.string.alertDialog_address);
+        dialog_map.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        dialog_addItem= new AlertDialog.Builder(ManagerPage.this);
+        dialog_addItem.setTitle(R.string.alertDialog_message);
+        dialog_addItem.setMessage(R.string.alertDialog_verified);
+        dialog_addItem.setPositiveButton("Send Again",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                MainActivity.firebaseUser.sendEmailVerification();
+                Log.i(MainActivity.TAG,"Sent a confirm Email to user.");
+            }
+        });
+        dialog_addItem.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        //endregion
     }
 
     // init OnClick Button
@@ -64,16 +104,7 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
 
                 MainActivity.UploadMyProfile();
 
-                AlertDialog.Builder dialog= new AlertDialog.Builder(ManagerPage.this);
-                dialog.setTitle(R.string.alertDialog_message);
-                dialog.setMessage(R.string.alertDialog_address);
-                dialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-
-                    }
-                });
-                dialog.show();
+                dialog_map.show();
 
                 break;
 
@@ -89,8 +120,16 @@ public class ManagerPage extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.manage_button_addItem:
-                Intent intent = new Intent(ManagerPage.this, AddItemPage.class);
-                startActivity(intent);
+
+                // Check the count the Verified
+                if(MainActivity.firebaseUser.isEmailVerified()){
+                    Intent intent = new Intent(ManagerPage.this, AddItemPage.class);
+                    startActivity(intent);
+                } else {
+                    Log.i(MainActivity.TAG,MainActivity.myProfile.userEmail + "have not Verified.");
+                    dialog_addItem.show();
+                }
+
                 break;
         }
     }

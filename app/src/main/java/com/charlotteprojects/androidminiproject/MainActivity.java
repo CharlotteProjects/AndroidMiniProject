@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static List<String> itemNameList = new ArrayList<>();
     public static List<String> itemPriceList = new ArrayList<>();
     public static List<String> itemEmailList = new ArrayList<>();
+    public static List<User> userList = new ArrayList<>();
 
     // Store user data
     public static User myProfile;
@@ -80,6 +81,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //endregion
+
+        //region download the users List
+
+        firebaseDatabase.getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    userList.add(ds.getValue(User.class));
+                }
+                Log.d(TAG, "Get a User List success.");
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        //endregion
     }
 
     @Override
@@ -93,13 +113,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.main_button_login:
                 if(firebaseUser == null){
+                    // When on one login
                     intent = new Intent(MainActivity.this, LoginPage.class);
                 } else {
+                    // When some one login
                     intent = new Intent(MainActivity.this, ManagerPage.class);
                 }
                 startActivity(intent);
                 break;
 
+                // Logout account
             case R.id.main_button_logout:
                 FirebaseAuth.getInstance().signOut();
                 Log.i(TAG,firebaseUser.getEmail() + " had logout...");
@@ -113,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //  pload the user profile to Firebase
+    //  upload the user profile to Firebase
     public static void UploadMyProfile(){
         MainActivity.firebaseDatabase.getReference("Users")
                 .child(MainActivity.firebaseUser.getUid())
