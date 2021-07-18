@@ -14,6 +14,7 @@
     <string name="toast_manage_geo">Please input latitude and longitude.</string>
     <string name="toast_manage_myAddressEmpty">Your shop address is empty.</string>
     <string name="toast_addItem_input">Item name and price can not empty.</string>
+    <string name="toast_noAddress">This item have not address.</string>
 
     <string name="alertDialog_loginSuccess">Login Success</string>
     <string name="alertDialog_loginWelcome">Welcome to Where\'s Shop !\t</string>

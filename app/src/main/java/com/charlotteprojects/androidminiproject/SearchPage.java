@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -31,8 +32,6 @@ https://www.hangtatproducts.com.hk/?catcode=cat_1005&page=productcat
 
 public class SearchPage extends AppCompatActivity {
 
-    public static final String SEARCH_WORD = "0001";
-
     private EditText editInput;
 
     private ProgressBar progressBar;
@@ -55,6 +54,10 @@ public class SearchPage extends AppCompatActivity {
                         MainActivity.itemNameList.clear();
                         MainActivity.itemPriceList.clear();
                         MainActivity.itemEmailList.clear();
+                        MainActivity.itemShopNameList.clear();
+                        MainActivity.itemLatitudeList.clear();
+                        MainActivity.itemLongitudeList.clear();
+
 
                         if (task.isSuccessful()) {
                             int index = 0;
@@ -73,6 +76,23 @@ public class SearchPage extends AppCompatActivity {
                                     MainActivity.itemPriceList.add(itemPrice);
                                     MainActivity.itemNameList.add(itemName);
                                     MainActivity.itemEmailList.add(itemEmail);
+
+                                    // check the item shop name with user list
+                                    boolean noShopName = true;
+                                    for(int j = 0; j < MainActivity.userList.size(); j++){
+                                        // Check which Email is same
+                                        if(MainActivity.userList.get(j).userEmail.equals(MainActivity.itemEmailList.get(index))){
+                                            MainActivity.itemShopNameList.add(MainActivity.userList.get(j).shopName);
+                                            MainActivity.itemLatitudeList.add(MainActivity.userList.get(j).latitude);
+                                            MainActivity.itemLongitudeList.add(MainActivity.userList.get(j).longitude);
+                                            noShopName = false;
+                                        }
+                                    }
+                                    if(noShopName){
+                                        MainActivity.itemShopNameList.add("-");
+                                        MainActivity.itemLatitudeList.add("1024");
+                                        MainActivity.itemLongitudeList.add("1024");
+                                    }
 
                                     Log.i(MainActivity.TAG,
                                             "[" + MainActivity.itemNameList.get(index)+"] is $ : " +
@@ -105,7 +125,7 @@ public class SearchPage extends AppCompatActivity {
                     Toast.makeText(SearchPage.this,R.string.search_toast, Toast.LENGTH_SHORT).show();
                 } else{
                     Intent intent = new Intent(SearchPage.this, ItemListPage.class);
-                    intent.putExtra(SEARCH_WORD, keyWord);
+                    intent.putExtra(MainActivity.SEARCH_WORD, keyWord);
                     startActivity(intent);
                     Log.i(MainActivity.TAG,"User input : " + keyWord );
                 }
@@ -124,18 +144,7 @@ public class SearchPage extends AppCompatActivity {
             HashMap<String, Object> item = new HashMap<String, Object>();
             item.put("name", MainActivity.itemNameList.get(i));
             item.put("price", MainActivity.itemPriceList.get(i));
-
-            // check the item shop name with user list
-            boolean noShopName = true;
-            for(int j = 0; j < MainActivity.userList.size(); j++){
-                // Check which Email is same
-                if(MainActivity.userList.get(j).userEmail.equals(MainActivity.itemEmailList.get(i))){
-                    item.put("shopName", MainActivity.userList.get(j).shopName);
-                    noShopName = false;
-                }
-            }
-            if(noShopName)
-                item.put("shopName", "-");
+            item.put("shopName", MainActivity.itemShopNameList.get(i));
 
             // item.put("image",imageAddress[i]);
             myList.add(item);
@@ -150,5 +159,25 @@ public class SearchPage extends AppCompatActivity {
         );
 
         listView.setAdapter(adapter);
+
+        // Add ListView On Listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if(MainActivity.itemLatitudeList.get(position).equals("1024") || MainActivity.itemLongitudeList.get(position).equals("1024")){
+                    Log.i(MainActivity.TAG,"No latitude & longitude");
+                } else {
+                    Intent intent = new Intent(SearchPage.this, MyShopAddress.class);
+
+                    intent.putExtra(MainActivity.ADDRESS_LATITUDE, MainActivity.itemLatitudeList.get(position));
+                    intent.putExtra(MainActivity.ADDRESS_LONGITUDE, MainActivity.itemLongitudeList.get(position));
+                    intent.putExtra(MainActivity.SHOP_NAME, MainActivity.itemShopNameList.get(position));
+
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 }

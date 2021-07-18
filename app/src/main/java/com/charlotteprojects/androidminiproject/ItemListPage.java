@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +20,9 @@ import java.util.List;
 public class ItemListPage extends AppCompatActivity {
 
     private ProgressBar progressBar;
+    List<String> tempLatitude = new ArrayList<>();
+    List<String> tempLongitude = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,7 @@ public class ItemListPage extends AppCompatActivity {
 
         // Get the keyword from search page
         Intent intent = getIntent();
-        String keyWord = intent.getStringExtra(SearchPage.SEARCH_WORD);
+        String keyWord = intent.getStringExtra(MainActivity.SEARCH_WORD);
         Log.i(MainActivity.TAG,"Get the keyWord : " + keyWord);
 
         // Set the keyword at TextView
@@ -58,18 +63,9 @@ public class ItemListPage extends AppCompatActivity {
 
                 item.put("name", MainActivity.itemNameList.get(i));
                 item.put("price", MainActivity.itemPriceList.get(i));
-
-                // check the item shop name with user list
-                boolean noShopName = true;
-                for(int j = 0; j < MainActivity.userList.size(); j++){
-                    // Check which Email is same
-                    if(MainActivity.userList.get(j).userEmail.equals(MainActivity.itemEmailList.get(i))){
-                        item.put("shopName", MainActivity.userList.get(j).shopName);
-                        noShopName = false;
-                    }
-                }
-                if(noShopName)
-                    item.put("shopName", "-");
+                item.put("shopName", MainActivity.itemShopNameList.get(i));
+                tempLatitude.add(MainActivity.itemLatitudeList.get(i));
+                tempLongitude.add(MainActivity.itemLongitudeList.get(i));
 
                 // item.put("image",imageAddress[i]);
                 myList.add(item);
@@ -92,5 +88,24 @@ public class ItemListPage extends AppCompatActivity {
         );
 
         listView.setAdapter(adapter);
+
+        // Add ListView Listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if(MainActivity.itemLatitudeList.get(position).equals("1024") || MainActivity.itemLongitudeList.get(position).equals("1024")){
+                    Log.i(MainActivity.TAG,"No latitude & longitude");
+                } else {
+                    Intent intent = new Intent(ItemListPage.this, MyShopAddress.class);
+
+                    intent.putExtra(MainActivity.ADDRESS_LATITUDE, MainActivity.itemLatitudeList.get(position));
+                    intent.putExtra(MainActivity.ADDRESS_LONGITUDE, MainActivity.itemLongitudeList.get(position));
+                    intent.putExtra(MainActivity.SHOP_NAME, MainActivity.itemShopNameList.get(position));
+
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

@@ -33,6 +33,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // For Debug
     public static final String TAG = "DebugLog";
 
+    // For Message
+    public static final String SEARCH_WORD = "searchWord";
+    public static final String ADDRESS_LATITUDE = "addressLatitude";
+    public static final String ADDRESS_LONGITUDE = "addressLongitude";
+    public static final String SHOP_NAME = "shopName";
+
     // Init Firebase
     public static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     public static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -43,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static List<String> itemNameList = new ArrayList<>();
     public static List<String> itemPriceList = new ArrayList<>();
     public static List<String> itemEmailList = new ArrayList<>();
+    public static List<String> itemShopNameList = new ArrayList<>();
+    public static List<String> itemLatitudeList = new ArrayList<>();
+    public static List<String> itemLongitudeList = new ArrayList<>();
     public static List<User> userList = new ArrayList<>();
 
     // Store user data
@@ -82,8 +91,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //endregion
 
-        //region download the users List
-
+        //region download the user List when loading Main page
+        userList.clear();
         firebaseDatabase.getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
