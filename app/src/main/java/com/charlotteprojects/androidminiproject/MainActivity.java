@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -117,6 +120,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         //endregion
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
+                Log.i(MainActivity.TAG,"Ads init completed");
+            }
+        });
     }
 
     //Double Click Exit

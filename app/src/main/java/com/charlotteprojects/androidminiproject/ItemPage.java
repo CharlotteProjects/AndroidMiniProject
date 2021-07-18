@@ -15,13 +15,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.InputStream;
 
 public class ItemPage extends AppCompatActivity {
 
     public static ProgressBar progressBar;
 
-    String stItemName, stItemPrice, stlatitude, stlongitude, shopName, imageURL;
+    private String stItemName, stItemPrice, stlatitude, stlongitude, shopName, imageURL;
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +53,7 @@ public class ItemPage extends AppCompatActivity {
 
         //endregion
 
-        // init UI : TextView and Image
+        //region init UI : TextView and Image
         progressBar = (ProgressBar) findViewById(R.id.item_progressBar);
         TextView textName = (TextView) findViewById(R.id.item_name);
         textName.setText(stItemName);
@@ -53,6 +63,8 @@ public class ItemPage extends AppCompatActivity {
 
         TextView textShopName = (TextView) findViewById(R.id.item_shopName);
         textShopName.setText(shopName);
+
+        //endregion
 
         //region set the button to google map
         ImageButton imageButton = (ImageButton) findViewById(R.id.item_imageButton);
@@ -86,6 +98,10 @@ public class ItemPage extends AppCompatActivity {
             new DownloadImageFromInternet((ImageView) findViewById(R.id.item_image))
                     .execute(imageURL);
         }
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     // Loading Image
