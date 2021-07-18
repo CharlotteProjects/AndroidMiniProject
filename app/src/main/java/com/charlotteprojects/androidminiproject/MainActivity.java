@@ -35,9 +35,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // For Message
     public static final String SEARCH_WORD = "searchWord";
+    public static final String ITEM_NAME = "itemName";
+    public static final String ITEM_PRICE = "itemPrice";
     public static final String ADDRESS_LATITUDE = "addressLatitude";
     public static final String ADDRESS_LONGITUDE = "addressLongitude";
     public static final String SHOP_NAME = "shopName";
+    public static final String ITEM_URL = "itemURL";
 
     // Init Firebase
     public static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // List for store the firebase data
     public static List<String> itemNameList = new ArrayList<>();
     public static List<String> itemPriceList = new ArrayList<>();
+    public static List<String> itemImageURL = new ArrayList<>();
     public static List<String> itemEmailList = new ArrayList<>();
     public static List<String> itemShopNameList = new ArrayList<>();
     public static List<String> itemLatitudeList = new ArrayList<>();

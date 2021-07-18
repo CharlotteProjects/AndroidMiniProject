@@ -58,7 +58,6 @@ public class SearchPage extends AppCompatActivity {
                         MainActivity.itemLatitudeList.clear();
                         MainActivity.itemLongitudeList.clear();
 
-
                         if (task.isSuccessful()) {
                             int index = 0;
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
@@ -69,12 +68,16 @@ public class SearchPage extends AppCompatActivity {
 
                                 // Set the data to item list and display on the log
                                 if(array.length > 0){
-                                    String itemPrice = array[0].substring(7);
-                                    String itemName = array[1].substring(6);
-                                    String itemEmail = array[2].substring(7, array[2].length()-1);
+                                    String itemImage = array[0].substring(7);
+                                    String itemPrice = array[1].substring(7);
+                                    String itemName = array[2].substring(6);
+                                    String itemEmail = array[3].substring(7, array[3].length()-1);
+
+                                    Log.i(MainActivity.TAG, itemImage);
 
                                     MainActivity.itemPriceList.add(itemPrice);
                                     MainActivity.itemNameList.add(itemName);
+                                    MainActivity.itemImageURL.add(itemImage);
                                     MainActivity.itemEmailList.add(itemEmail);
 
                                     // check the item shop name with user list
@@ -150,8 +153,7 @@ public class SearchPage extends AppCompatActivity {
             item.put("name", MainActivity.itemNameList.get(i));
             item.put("price", MainActivity.itemPriceList.get(i));
             item.put("shopName", MainActivity.itemShopNameList.get(i));
-
-            // item.put("image",imageAddress[i]);
+            item.put("image",R.drawable.construction2);
             myList.add(item);
         }
 
@@ -159,8 +161,8 @@ public class SearchPage extends AppCompatActivity {
                 this,
                 myList,
                 R.layout.item_page,
-                new String[]{"name","price","shopName"},
-                new int[]{R.id.list_name, R.id.list_price, R.id.list_shopName}
+                new String[]{"name","price","shopName","image"},
+                new int[]{R.id.list_name, R.id.list_price, R.id.list_shopName, R.id.list_image}
         );
 
         listView.setAdapter(adapter);
@@ -170,18 +172,17 @@ public class SearchPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(MainActivity.itemLatitudeList.get(position).equals("1024") || MainActivity.itemLongitudeList.get(position).equals("1024")){
-                    Toast.makeText(SearchPage.this,R.string.toast_noAddress,Toast.LENGTH_LONG).show();
-                    Log.i(MainActivity.TAG,"No latitude & longitude");
-                } else {
-                    Intent intent = new Intent(SearchPage.this, MyShopAddress.class);
+                Intent intent = new Intent(SearchPage.this, ItemPage.class);
 
-                    intent.putExtra(MainActivity.ADDRESS_LATITUDE, MainActivity.itemLatitudeList.get(position));
-                    intent.putExtra(MainActivity.ADDRESS_LONGITUDE, MainActivity.itemLongitudeList.get(position));
-                    intent.putExtra(MainActivity.SHOP_NAME, MainActivity.itemShopNameList.get(position));
+                intent.putExtra(MainActivity.ITEM_NAME, MainActivity.itemNameList.get(position));
+                intent.putExtra(MainActivity.ITEM_PRICE, MainActivity.itemPriceList.get(position));
+                intent.putExtra(MainActivity.ADDRESS_LATITUDE, MainActivity.itemLatitudeList.get(position));
+                intent.putExtra(MainActivity.ADDRESS_LONGITUDE, MainActivity.itemLongitudeList.get(position));
+                intent.putExtra(MainActivity.SHOP_NAME, MainActivity.itemShopNameList.get(position));
+                intent.putExtra(MainActivity.ITEM_URL, MainActivity.itemImageURL.get(position));
 
-                    startActivity(intent);
-                }
+                startActivity(intent);
+
             }
         });
 

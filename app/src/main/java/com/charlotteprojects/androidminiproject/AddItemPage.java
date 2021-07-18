@@ -49,6 +49,7 @@ public class AddItemPage extends AppCompatActivity {
                 user.put("name", itemName);
                 user.put("price", itemPrice);
                 user.put("email", MainActivity.myProfile.userEmail);
+                user.put("image", "-");
 
                 // upload the new item to Firestore
                 MainActivity.firestore.collection("item")

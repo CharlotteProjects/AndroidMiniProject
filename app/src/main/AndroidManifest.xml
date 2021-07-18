@@ -74,7 +74,12 @@
         <activity android:name=".AddItemPage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ManagerPage" />
+        </activity>
+        <activity android:name=".ItemPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchPage" />
         </activity>
     </application>
 

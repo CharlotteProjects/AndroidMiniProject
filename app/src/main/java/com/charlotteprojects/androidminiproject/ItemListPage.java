@@ -20,9 +20,12 @@ import java.util.List;
 public class ItemListPage extends AppCompatActivity {
 
     private ProgressBar progressBar;
+    List<String> tempName = new ArrayList<>();
+    List<String> tempPrice = new ArrayList<>();
     List<String> tempLatitude = new ArrayList<>();
     List<String> tempLongitude = new ArrayList<>();
-
+    List<String> tempShopName = new ArrayList<>();
+    List<String> tempImageURL = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +67,12 @@ public class ItemListPage extends AppCompatActivity {
                 item.put("name", MainActivity.itemNameList.get(i));
                 item.put("price", MainActivity.itemPriceList.get(i));
                 item.put("shopName", MainActivity.itemShopNameList.get(i));
+                tempName.add(MainActivity.itemNameList.get(i));
+                tempPrice.add(MainActivity.itemPriceList.get(i));
                 tempLatitude.add(MainActivity.itemLatitudeList.get(i));
                 tempLongitude.add(MainActivity.itemLongitudeList.get(i));
+                tempShopName.add(MainActivity.itemShopNameList.get(i));
+                tempImageURL.add(MainActivity.itemImageURL.get(i));
 
                 // item.put("image",imageAddress[i]);
                 myList.add(item);
@@ -94,18 +101,17 @@ public class ItemListPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(MainActivity.itemLatitudeList.get(position).equals("1024") || MainActivity.itemLongitudeList.get(position).equals("1024")){
-                    Toast.makeText(ItemListPage.this,R.string.toast_noAddress,Toast.LENGTH_LONG).show();
-                    Log.i(MainActivity.TAG,"No latitude & longitude");
-                } else {
-                    Intent intent = new Intent(ItemListPage.this, MyShopAddress.class);
+                Intent intent = new Intent(ItemListPage.this, ItemPage.class);
 
-                    intent.putExtra(MainActivity.ADDRESS_LATITUDE, MainActivity.itemLatitudeList.get(position));
-                    intent.putExtra(MainActivity.ADDRESS_LONGITUDE, MainActivity.itemLongitudeList.get(position));
-                    intent.putExtra(MainActivity.SHOP_NAME, MainActivity.itemShopNameList.get(position));
+                intent.putExtra(MainActivity.ITEM_NAME, tempName.get(position));
+                intent.putExtra(MainActivity.ITEM_PRICE, tempPrice.get(position));
+                intent.putExtra(MainActivity.ADDRESS_LATITUDE, tempLatitude.get(position));
+                intent.putExtra(MainActivity.ADDRESS_LONGITUDE, tempLongitude.get(position));
+                intent.putExtra(MainActivity.SHOP_NAME, tempShopName.get(position));
+                intent.putExtra(MainActivity.ITEM_URL, tempImageURL.get(position));
 
-                    startActivity(intent);
-                }
+                startActivity(intent);
+
             }
         });
     }
