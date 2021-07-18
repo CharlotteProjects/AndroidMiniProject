@@ -81,4 +81,5 @@
     <string name="title_activity_my_shop_address">Map</string>
     <string name="addItem_text_title">Create a New Item</string>
     <string name="addItem_button_add">Release Item</string>
+    <string name="main_website">Website</string>
 </resources>

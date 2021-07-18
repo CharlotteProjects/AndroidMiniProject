@@ -40,16 +40,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.6" />
 
     <Button
         android:id="@+id/main_button_login"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="140sp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
         android:text="@string/main_button_login"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,11 +61,48 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="140sp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
         android:text="@string/main_button_logout"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_button_login" />
+
+    <ImageButton
+        android:id="@+id/main_imageButtonEmail"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginBottom="20sp"
+        android:background="@android:drawable/divider_horizontal_dark"
+        android:scaleType="fitXY"
+        android:src="@drawable/emailm"
+        app:layout_constraintBottom_toTopOf="@+id/main_imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/main_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@android:drawable/divider_horizontal_dark"
+        android:src="@drawable/internet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/main_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_website"
+        android:textSize="24sp"
+        android:textColor="@color/colorBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/main_imageButton"
+        app:layout_constraintStart_toEndOf="@+id/main_imageButton"
+        app:layout_constraintTop_toTopOf="@+id/main_imageButton"
+        app:layout_constraintVertical_bias="0.967" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

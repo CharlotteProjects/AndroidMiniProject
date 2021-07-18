@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
@@ -121,12 +125,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //endregion
 
+        // init Ads
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
                 Log.i(MainActivity.TAG,"Ads init completed");
             }
         });
+
+        // init Website
+        TextView link = (TextView) findViewById(R.id.main_text);
+        String linkText = "<a href='https://charlotteprojects.github.io/'>Website</a>";
+        link.setText(Html.fromHtml(linkText));
+        link.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // init ImageButton
+        ImageButton imageButton = (ImageButton) findViewById(R.id.main_imageButton);
+        imageButton.setOnClickListener(this);
+
+        ImageButton imageButtonEmail = (ImageButton) findViewById(R.id.main_imageButtonEmail);
+        imageButtonEmail.setOnClickListener(this);
     }
 
     //Double Click Exit
@@ -181,6 +199,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // hide Logout Button
                 buttonLogin.setText(getResources().getString(R.string.main_button_login));
                 buttonLogout.setVisibility(View.GONE);
+
+                break;
+
+            case R.id.main_imageButton:
+
+                break;
+            case R.id.main_imageButtonEmail:
+                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+                emailIntent.setType("plain/text");
+
+                emailIntent.putExtra(
+                        android.content.Intent.EXTRA_EMAIL,
+                        new String[] { "Admin@WhereShop.com" });
+
+                emailIntent.putExtra(
+                        android.content.Intent.EXTRA_SUBJECT,
+                        "Email Subject");
+
+                emailIntent.putExtra(
+                        android.content.Intent.EXTRA_TEXT,
+                        "Your Content");
+
+
+                startActivity(Intent.createChooser(
+                        emailIntent,
+                        "Send mail..."));
 
                 break;
         }
