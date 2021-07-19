@@ -73,8 +73,6 @@ public class SearchPage extends AppCompatActivity {
                                     String itemName = array[2].substring(6);
                                     String itemEmail = array[3].substring(7, array[3].length()-1);
 
-                                    Log.i(MainActivity.TAG, itemImage);
-
                                     MainActivity.itemPriceList.add(itemPrice);
                                     MainActivity.itemNameList.add(itemName);
                                     MainActivity.itemImageURL.add(itemImage);
@@ -108,6 +106,9 @@ public class SearchPage extends AppCompatActivity {
                                                     MainActivity.itemLongitudeList.get(index),
                                             task.getException()
                                     );
+
+                                    Log.i(MainActivity.TAG, itemImage);
+
                                     index++;
                                 }
                             }
