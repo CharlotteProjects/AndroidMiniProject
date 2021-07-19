@@ -59,61 +59,70 @@ public class SearchPage extends AppCompatActivity {
                         MainActivity.itemLongitudeList.clear();
 
                         if (task.isSuccessful()) {
-                            int index = 0;
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                            try{
 
-                                String json = document.getData().toString();
+                                int index = 0;
+                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
 
-                                String[] array = json.split(",");
+                                    String json = document.getData().toString();
 
-                                // Set the data to item list and display on the log
-                                if(array.length > 0){
-                                    String itemImage = array[0].substring(7);
-                                    String itemPrice = array[1].substring(7);
-                                    String itemName = array[2].substring(6);
-                                    String itemEmail = array[3].substring(7, array[3].length()-1);
+                                    String[] array = json.split(",");
 
-                                    MainActivity.itemPriceList.add(itemPrice);
-                                    MainActivity.itemNameList.add(itemName);
-                                    MainActivity.itemImageURL.add(itemImage);
-                                    MainActivity.itemEmailList.add(itemEmail);
+                                    // Set the data to item list and display on the log
+                                    if(array.length > 0){
+                                        String itemImage = array[0].substring(7);
+                                        String itemPrice = array[1].substring(7);
+                                        String itemName = array[2].substring(6);
+                                        String itemEmail = array[3].substring(7, array[3].length()-1);
 
-                                    // check the item shop name with user list
+                                        MainActivity.itemPriceList.add(itemPrice);
+                                        MainActivity.itemNameList.add(itemName);
+                                        MainActivity.itemImageURL.add(itemImage);
+                                        MainActivity.itemEmailList.add(itemEmail);
 
-                                    for(int j = 0; j < MainActivity.userList.size(); j++){
-                                        // Check which Email is same
-                                        if(MainActivity.userList.get(j).userEmail.equals(MainActivity.itemEmailList.get(index))){
-                                            MainActivity.itemShopNameList.add(MainActivity.userList.get(j).shopName);
+                                        // check the item shop name with user list
 
-                                            if(MainActivity.userList.get(j).latitude.isEmpty())
-                                                MainActivity.itemLatitudeList.add("1024");
-                                            else
-                                                MainActivity.itemLatitudeList.add(MainActivity.userList.get(j).latitude);
+                                        for(int j = 0; j < MainActivity.userList.size(); j++){
+                                            // Check which Email is same
+                                            if(MainActivity.userList.get(j).userEmail.equals(MainActivity.itemEmailList.get(index))){
+                                                MainActivity.itemShopNameList.add(MainActivity.userList.get(j).shopName);
 
-                                            if(MainActivity.userList.get(j).longitude.isEmpty())
-                                                MainActivity.itemLongitudeList.add("1024");
-                                            else
-                                                MainActivity.itemLongitudeList.add(MainActivity.userList.get(j).longitude);
+                                                if(MainActivity.userList.get(j).latitude.isEmpty())
+                                                    MainActivity.itemLatitudeList.add("1024");
+                                                else
+                                                    MainActivity.itemLatitudeList.add(MainActivity.userList.get(j).latitude);
+
+                                                if(MainActivity.userList.get(j).longitude.isEmpty())
+                                                    MainActivity.itemLongitudeList.add("1024");
+                                                else
+                                                    MainActivity.itemLongitudeList.add(MainActivity.userList.get(j).longitude);
+                                            }
                                         }
+
+                                        // display the data
+                                        Log.i(MainActivity.TAG,
+                                                "[" + MainActivity.itemNameList.get(index)+"] is $ : " +
+                                                        MainActivity.itemPriceList.get(index) + ", Email :"+
+                                                        MainActivity.itemEmailList.get(index) + ", Shop Name : " +
+                                                        MainActivity.itemShopNameList.get(index) + ", geo : " +
+                                                        MainActivity.itemLatitudeList.get(index) + " : " +
+                                                        MainActivity.itemLongitudeList.get(index),
+                                                task.getException()
+                                        );
+
+                                        Log.i(MainActivity.TAG, itemImage);
+
+                                        index++;
                                     }
-
-                                    Log.i(MainActivity.TAG,
-                                            "[" + MainActivity.itemNameList.get(index)+"] is $ : " +
-                                                    MainActivity.itemPriceList.get(index) + ", Email :"+
-                                                    MainActivity.itemEmailList.get(index) + ", Shop Name : " +
-                                                    MainActivity.itemShopNameList.get(index) + ", geo : " +
-                                                    MainActivity.itemLatitudeList.get(index) + " : " +
-                                                    MainActivity.itemLongitudeList.get(index),
-                                            task.getException()
-                                    );
-
-                                    Log.i(MainActivity.TAG, itemImage);
-
-                                    index++;
                                 }
+
+                                SetItemListView();
+                            } catch (Exception e){
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(SearchPage.this,R.string.toast_loadingListViewError,Toast.LENGTH_LONG).show();
+                                Log.e(MainActivity.TAG, "Error for loading data.", e);
                             }
 
-                            SetItemListView();
                         } else {
                             Log.e(MainActivity.TAG, "Error Can not get data.", task.getException());
                         }
