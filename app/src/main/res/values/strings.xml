@@ -26,6 +26,7 @@
     <string name="alertDialog_address">Add shop address success. Your can click on My Address Button.</string>
     <string name="alertDialog_addItem">You release a new item :\n</string>
     <string name="alertDialog_verified">Your account have not verified by Email. Please check your Email </string>
+    <string name="alertDialog_Language">Please change your Language</string>
 
     <string name="item_picture">Item Image</string>
     <string name="item_name">Item Name : </string>

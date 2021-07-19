@@ -3,11 +3,16 @@ package com.charlotteprojects.androidminiproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 // This is a Singleton , for other page get set Firebase data
@@ -77,6 +83,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // set language
+        int i = getSharedPreferences("WhereShop",MODE_PRIVATE).getInt("language",0);
+        if(i != 0)
+            SetLanguage(Locale.TRADITIONAL_CHINESE,false);
+
         setContentView(R.layout.activity_main);
 
         firebaseUser = MainActivity.firebaseAuth.getCurrentUser();
@@ -145,6 +157,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ImageButton imageButtonEmail = (ImageButton) findViewById(R.id.main_imageButtonEmail);
         imageButtonEmail.setOnClickListener(this);
+
+        ImageButton imageButtonLanguage = (ImageButton) findViewById(R.id.main_imageButtonLanguage);
+        imageButtonLanguage.setOnClickListener(this);
     }
 
     //Double Click Exit
@@ -228,6 +243,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         "Send mail..."));
 
                 break;
+            case R.id.main_imageButtonLanguage:
+
+                AlertDialog.Builder dialog_login = new AlertDialog.Builder(MainActivity.this);
+                dialog_login.setTitle(R.string.alertDialog_message);
+                dialog_login.setMessage(R.string.alertDialog_Language);
+                dialog_login.setPositiveButton("中文",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // save
+                        getSharedPreferences("WhereShop", MODE_PRIVATE).edit().putInt("language", 1).apply();
+
+                        SetLanguage(Locale.TRADITIONAL_CHINESE,true);
+                    }
+                });
+
+                dialog_login.setNegativeButton("English",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // save
+                        getSharedPreferences("WhereShop", MODE_PRIVATE).edit().putInt("language", 0).apply();
+
+                        SetLanguage(Locale.getDefault(), true);
+                    }
+                });
+                dialog_login.show();
+
+                break;
+        }
+    }
+
+    // Set the System Language
+    private void SetLanguage(Locale localeLanguage, boolean refresh){
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+        config.locale = localeLanguage;
+        resources.updateConfiguration(config, dm);
+
+        // refresh Activity Layout
+        if(refresh){
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            finish();
+            startActivity(intent);
         }
     }
 

@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Where Shop</string>
+
+    <string name="toast_loginFail">帳號或密碼輸入錯誤</string>
+    <string name="toast_registerEmail">請輸入你的電郵</string>
+    <string name="toast_registerCorrectEmail">請輸入正確的電郵</string>
+    <string name="toast_registerSameEmail">電郵已被註冊，請輸入另一個電郵</string>
+    <string name="toast_registerPW">請輸入密碼</string>
+    <string name="toast_registerPWSix">密碼最少要6個字</string>
+    <string name="toast_registerPWConfirm">請再輸入密碼</string>
+    <string name="toast_registerUserName">請輸入你的稱呼</string>
+    <string name="toast_registerShopName">請輸入你的商店名</string>
+    <string name="toast_registerFail">註冊失敗，請再試</string>
+    <string name="toast_manage_geo">請輸入緯度和經度</string>
+    <string name="toast_manage_myAddressEmpty">你的商店地址是空白</string>
+    <string name="toast_addItem_input">商品名稱和價錢不能是空白</string>
+    <string name="toast_noAddress">這件商品沒有商店地址</string>
+    <string name="toast_exit">雙擊退出應用程式</string>
+    <string name="toast_loadingListViewError">糟糕了! 發生加載錯誤! 如需幫助請聯絡我們.</string>
+
+    <string name="alertDialog_loginSuccess">登入成功</string>
+    <string name="alertDialog_loginWelcome">歡迎來到 Where\'s Shop !\t</string>
+    <string name="alertDialog_registerSuccess">註冊成功</string>
+    <string name="alertDialog_registerWelcome">歡迎來到 Where\'s Shop !\n請檢查你的電郵</string>
+    <string name="alertDialog_message">訊息</string>
+    <string name="alertDialog_address">加入商店地址成功. 你可以點擊我的商店座標查看.</string>
+    <string name="alertDialog_addItem">你發佈一個新商品 :\n</string>
+    <string name="alertDialog_verified">你的帳號還沒有驗證，請查看你的電郵。</string>
+    <string name="alertDialog_Language">請選擇語言</string>
+
+    <string name="item_picture">商品圖片</string>
+    <string name="item_name">商品名稱 : </string>
+    <string name="item_price">商品價錢 (HKD) : $</string>
+    <string name="item_shopName">商店名稱 : </string>
+
+    <string name="main_button_start">開始</string>
+    <string name="main_button_login">登入</string>
+    <string name="main_button_logout">登出</string>
+    <string name="main_button_manager">管理</string>
+
+    <string name="search_text">我想尋找 : </string>
+    <string name="search_text2">推介商品</string>
+    <string name="search_button_text">尋找</string>
+    <string name="search_toast">請輸入關鍵字</string>
+
+    <string name="itemList_text">尋找商品 : </string>
+    <string name="itemList_found">尋找結果 :</string>
+    <string name="itemList_notFound">尋找結果 : 沒有合適 …</string>
+
+    <string name="login_id">用戶電郵 :</string>
+    <string name="login_pw">密碼 :</string>
+    <string name="login_registered">註冊</string>
+    <string name="login_login">登入</string>
+    <string name="login_forget">忘記密碼</string>
+
+    <string name="register_name">用戶名稱 :</string>
+    <string name="register_shopName">商店名稱 :</string>
+    <string name="register_email">請輸入你的電郵 :</string>
+    <string name="register_password">輸入密碼 (最少6個字) :</string>
+    <string name="register_password_again">確認密碼 :</string>
+    <string name="register_button_register">註冊</string>
+
+    <string name="forgot_send">發送</string>
+    <string name="forget_text_title">忘記你的密碼?</string>
+    <string name="forgot_text_content">不用擔心，只要填寫你在 Where\'Shop 註冊的電郵就能重設你的密碼。</string>
+    <string name="forget_text_titleRe">重設你的密碼</string>
+    <string name="forgot_text_contenteRe">重設你的密碼電郵已發送去\n</string>
+    <string name="forgot_text_contenteRe2">\n請點撃重設密碼連結去設定新的密碼</string>
+
+    <string name="manage_text_welcome">歡迎來到 Where\'s Shop !</string>
+    <string name="manage_text_myShop">你的商店 :</string>
+    <string name="manage_text_address">加入我的商店座標</string>
+    <string name="manage_text_latitude">緯度 :</string>
+    <string name="manage_text_longitude">經度 :</string>
+    <string name="manage_button_add">新增商品</string>
+    <string name="manage_button_address">加入商店座標</string>
+    <string name="manage_title">管理任的商品</string>
+    <string name="manage_button_myAddress">我的商店座標</string>
+
+    <string name="addItem_text_name">商品名稱 :</string>
+    <string name="addItem_text_price">商品價錢 :</string>
+
+    <string name="title_activity_my_shop_address">Map</string>
+    <string name="addItem_text_title">創建新商品</string>
+    <string name="addItem_button_add">發佈商品</string>
+    <string name="main_website">Website</string>
+</resources>
