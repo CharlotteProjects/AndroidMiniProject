@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int i = getSharedPreferences("WhereShop",MODE_PRIVATE).getInt("language",0);
         if(i != 0)
             SetLanguage(Locale.TRADITIONAL_CHINESE,false);
+        else
+            SetLanguage(Locale.getDefault(),false);
 
         setContentView(R.layout.activity_main);
 
