@@ -74,7 +74,7 @@
     <string name="manage_text_longitude">經度 :</string>
     <string name="manage_button_add">新增商品</string>
     <string name="manage_button_address">加入商店座標</string>
-    <string name="manage_title">管理任的商品</string>
+    <string name="manage_title">管理你的商品</string>
     <string name="manage_button_myAddress">我的商店座標</string>
 
     <string name="addItem_text_name">商品名稱 :</string>
