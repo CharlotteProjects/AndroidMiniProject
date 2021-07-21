@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // For Debug
     public static final String TAG = "DebugLog";
 
-    // For Message
+    //region For Message
     public static final String SEARCH_WORD = "searchWord";
     public static final String ITEM_NAME = "itemName";
     public static final String ITEM_PRICE = "itemPrice";
@@ -58,14 +58,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String ADDRESS_LONGITUDE = "addressLongitude";
     public static final String SHOP_NAME = "shopName";
     public static final String ITEM_URL = "itemURL";
+    //endregion
 
-    // Init Firebase
+    //region Init Firebase
     public static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     public static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     public static FirebaseAuth firebaseAuth  = FirebaseAuth.getInstance();
     public static FirebaseUser firebaseUser;
+    //endregion
 
-    // List for store the firebase data
+    //region List for store the firebase data
     public static List<String> itemNameList = new ArrayList<>();
     public static List<String> itemPriceList = new ArrayList<>();
     public static List<String> itemImageURL = new ArrayList<>();
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static List<String> itemLatitudeList = new ArrayList<>();
     public static List<String> itemLongitudeList = new ArrayList<>();
     public static List<User> userList = new ArrayList<>();
+    //endregion
 
     // Store user data
     public static User myProfile;
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(i != 0)
             SetLanguage(Locale.TRADITIONAL_CHINESE,false);
         else
-            SetLanguage(Locale.getDefault(),false);
+            SetLanguage(Locale.ENGLISH,false);
 
         setContentView(R.layout.activity_main);
 
@@ -266,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // save
                         getSharedPreferences("WhereShop", MODE_PRIVATE).edit().putInt("language", 0).apply();
 
-                        SetLanguage(Locale.getDefault(), true);
+                        SetLanguage(Locale.ENGLISH, true);
                     }
                 });
                 dialog_login.show();

@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Where Shop</string>
+
+    <string name="toast_loginFail">Wrong User ID or Password input.</string>
+    <string name="toast_registerEmail">Please enter your email.</string>
+    <string name="toast_registerCorrectEmail">Please input a correct Email.</string>
+    <string name="toast_registerSameEmail">This Email had been registered. Please input another Email.</string>
+    <string name="toast_registerPW">Please enter password.</string>
+    <string name="toast_registerPWSix">Please enter least 6 characters password .</string>
+    <string name="toast_registerPWConfirm">Please enter password again.</string>
+    <string name="toast_registerUserName">Please enter your user name.</string>
+    <string name="toast_registerShopName">Please enter your shop name.</string>
+    <string name="toast_registerFail">Sign up Fail. Please try again.</string>
+    <string name="toast_manage_geo">Please input latitude and longitude.</string>
+    <string name="toast_manage_myAddressEmpty">Your shop address is empty.</string>
+    <string name="toast_addItem_input">Item name and price can not empty.</string>
+    <string name="toast_noAddress">This item have not address.</string>
+    <string name="toast_exit">Double Click For Exit</string>
+    <string name="toast_loadingListViewError">Oh No ! Loading Item Error ! Please contact we for help.</string>
+
+    <string name="alertDialog_loginSuccess">Login Success</string>
+    <string name="alertDialog_loginWelcome">Welcome to Where\'s Shop !\t</string>
+    <string name="alertDialog_registerSuccess">Sign up Success</string>
+    <string name="alertDialog_registerWelcome">Welcome to Where\'s Shop !\nPlease Check your email for confirm account.</string>
+    <string name="alertDialog_message">Message</string>
+    <string name="alertDialog_address">Add shop address success. Your can click on My Address Button.</string>
+    <string name="alertDialog_addItem">You release a new item :\n</string>
+    <string name="alertDialog_verified">Your account have not verified by Email. Please check your Email </string>
+    <string name="alertDialog_Language">Please change your Language</string>
+
+    <string name="item_picture">Item Image</string>
+    <string name="item_name">Item Name : </string>
+    <string name="item_price">Item Price (HKD) : $</string>
+    <string name="item_shopName">Shop Name : </string>
+
+    <string name="main_button_start">Start</string>
+    <string name="main_button_login">Login</string>
+    <string name="main_button_logout">Logout</string>
+    <string name="main_button_manager">Manage</string>
+
+    <string name="search_text">I Want to Find : </string>
+    <string name="search_text2">Recommend products</string>
+    <string name="search_button_text">Search</string>
+    <string name="search_toast">Please input somethings</string>
+
+    <string name="itemList_text">Search Item : </string>
+    <string name="itemList_found">Found Result :</string>
+    <string name="itemList_notFound">Found Result : Not Match …</string>
+
+    <string name="login_id">User Email :</string>
+    <string name="login_pw">Password :</string>
+    <string name="login_registered">Sign up</string>
+    <string name="login_login">Login</string>
+    <string name="login_forget">Forgot Password</string>
+
+    <string name="register_name">User Name :</string>
+    <string name="register_shopName">Shop Name :</string>
+    <string name="register_email">Enter your email :</string>
+    <string name="register_password">Enter password (Least 6 characters) :</string>
+    <string name="register_password_again">Confirm password :</string>
+    <string name="register_button_register">Register</string>
+
+    <string name="forgot_send">Send</string>
+    <string name="forget_text_title">Forget your password?</string>
+    <string name="forgot_text_content">Don\'t worry. Resetting your password is easy, just tell us the email address you registered with Where\'s Shop.</string>
+    <string name="forget_text_titleRe">Reset Your Password</string>
+    <string name="forgot_text_contenteRe">We have sent a reset password email to\n</string>
+    <string name="forgot_text_contenteRe2">\nPlease click reset password link to set your new password.</string>
+
+    <string name="manage_text_welcome">Welcome to Where\'s Shop !</string>
+    <string name="manage_text_myShop">My Shop :</string>
+    <string name="manage_text_address">Add My Shop Address</string>
+    <string name="manage_text_latitude">Latitude :</string>
+    <string name="manage_text_longitude">Longitude :</string>
+    <string name="manage_button_add">Add New Item</string>
+    <string name="manage_button_address">Add Address</string>
+    <string name="manage_title">Manage Your Items</string>
+    <string name="manage_button_myAddress">My Address</string>
+
+    <string name="addItem_text_name">Item Name :</string>
+    <string name="addItem_text_price">Item Price :</string>
+
+    <string name="title_activity_my_shop_address">Map</string>
+    <string name="addItem_text_title">Create a New Item</string>
+    <string name="addItem_button_add">Release Item</string>
+    <string name="main_website">Website</string>
+</resources>
